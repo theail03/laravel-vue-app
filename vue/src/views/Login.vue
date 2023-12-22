@@ -44,32 +44,24 @@
     </Alert>
     <input type="hidden" name="remember" value="true" />
     <div class="rounded-md shadow-sm -space-y-px">
-      <div>
-        <label for="email-address" class="sr-only">Email address</label>
-        <input
+      <TInput
           id="email-address"
-          name="email"
+          name="name"
           type="email"
-          autocomplete="email"
-          required=""
           v-model="user.email"
-          class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
           placeholder="Email address"
-        />
-      </div>
-      <div>
-        <label for="password" class="sr-only">Password</label>
-        <input
+          inputClass="rounded-t-md"
+          :required="true"
+      />
+      <TInput
           id="password"
           name="password"
           type="password"
-          autocomplete="current-password"
-          required=""
           v-model="user.password"
-          class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
           placeholder="Password"
-        />
-      </div>
+          inputClass="rounded-b-md"
+          :required="true"
+      />
     </div>
 
     <div class="flex items-center justify-between">
@@ -108,6 +100,7 @@ import { useRouter } from "vue-router";
 import { ref } from "vue";
 import Alert from "../components/Alert.vue";
 import TButtonLoading from "../components/core/TButtonLoading.vue";
+import TInput from "../components/core/TInput.vue";
 
 const router = useRouter();
 

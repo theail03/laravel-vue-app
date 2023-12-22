@@ -9,6 +9,7 @@
       class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
       :class="{ ...computedInputClass, 'border-red-500': errors[name], 'z-10': errors[email] }"
       :placeholder="placeholder"
+      :required="required"
     />
   </div>
 </template>
@@ -21,13 +22,20 @@ const props = defineProps({
     type: String,
     default: "text",
   },
-  errors: Object,
+  errors: {
+    type: Object,
+    default: () => ({}),
+  },
   name: String,
   id: String,
   label: String,
   placeholder: String,
   modelValue: String,
   inputClass: [String, Array, Object],
+  required: {
+    type: Boolean,
+    default: false,
+  },
 });
 
 const emits = defineEmits(["update:modelValue"]);
