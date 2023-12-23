@@ -1,3 +1,11 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.add-button {
+    @apply flex items-center text-xs rounded-sm text-white bg-gray-600 hover:bg-gray-700;
+}
+
+.input {
+    @apply mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md;
+}

@@ -78,7 +78,7 @@
               id="title"
               v-model="model.title"
               autocomplete="survey_title"
-              class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+              class="input"
             />
           </div>
           <!--/ Title -->
@@ -95,7 +95,7 @@
                 rows="3"
                 v-model="model.description"
                 autocomplete="survey_description"
-                class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 mt-1 block w-full sm:text-sm border border-gray-300 rounded-md"
+                class="input border"
                 placeholder="Describe your survey"
               />
             </div>
@@ -114,7 +114,7 @@
               name="expire_date"
               id="expire_date"
               v-model="model.expire_date"
-              class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+              class="input"
             />
           </div>
           <!--/ Expire Date -->

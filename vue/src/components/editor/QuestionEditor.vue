@@ -11,7 +11,7 @@
       <button
         type="button"
         @click="addQuestion()"
-        class="flex items-center text-xs rounded-sm text-white bg-gray-600 hover:bg-gray-700 py-1 px-3 mr-2"
+        class="add-button py-1 px-3 mr-2"
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -67,7 +67,7 @@
         v-model="model.question"
         @change="dataChange"
         :id="'question_text_' + model.data"
-        class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+        class="input"
       />
     </div>
     <!--/ Question -->
@@ -82,8 +82,7 @@
         name="question_type"
         v-model="model.type"
         @change="typeChange"
-        class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md
-          border bg-white focus:outline-none py-2 px-3"
+        class="input border bg-white focus:outline-none py-2 px-3"
       >   
         <option v-for="type in questionTypes" :key="type" :value="type">
           {{ upperCaseFirst(type) }}
@@ -105,7 +104,7 @@
       v-model="model.description"
       @change="dataChange"
       :id="'question_description_' + model.id"
-      class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+      class="input"
     />
   </div>
   <!--/ Question Description -->
@@ -120,7 +119,7 @@
         <button
           type="button"
           @click="addOption()"
-          class="flex items-center text-xs rounded-sm text-white bg-gray-600 hover:bg-gray-700 py-1 px-2"
+          class="add-button py-1 px-2"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"

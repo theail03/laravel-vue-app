@@ -69,14 +69,14 @@
           type="text"
           :value="modelValue"
           @input="emits('update:modelValue', $event.target.value)"
-          class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+          class="input"
         />
       </div>
       <div v-else-if="question.type === 'textarea'">
         <textarea
           :value="modelValue"
           @input="emits('update:modelValue', $event.target.value)"
-          class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+          class="input"
         ></textarea>
       </div>
     </div>
