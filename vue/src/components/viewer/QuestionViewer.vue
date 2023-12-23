@@ -37,7 +37,7 @@
           />
           <label
             :for="option.uuid"
-            class="ml-3 block text-sm font-medium text-gray-700"
+            class="ml-3 label"
           >
             {{ option.text }}
           </label>
@@ -58,7 +58,7 @@
           />
           <label
             :for="option.uuid"
-            class="ml-3 block text-sm font-medium text-gray-700"
+            class="ml-3 label"
           >
             {{ option.text }}
           </label>

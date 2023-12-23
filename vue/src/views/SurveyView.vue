@@ -25,7 +25,7 @@
         <div class="px-4 py-5 bg-white space-y-6 sm:p-6">
           <!-- Image -->
           <div>
-            <label class="block text-sm font-medium text-gray-700">
+            <label class="label">
               Image
             </label>
             <div class="mt-1 flex items-center">
@@ -69,7 +69,7 @@
 
           <!-- Title -->
           <div>
-            <label for="title" class="block text-sm font-medium text-gray-700"
+            <label for="title" class="label"
               >Title</label
             >
             <input
@@ -85,7 +85,7 @@
 
           <!-- Description -->
           <div>
-            <label for="about" class="block text-sm font-medium text-gray-700">
+            <label for="about" class="label">
               Description
             </label>
             <div class="mt-1">
@@ -106,7 +106,7 @@
           <div>
             <label
               for="expire_date"
-              class="block text-sm font-medium text-gray-700"
+              class="label"
               >Expire Date</label
             >
             <input
