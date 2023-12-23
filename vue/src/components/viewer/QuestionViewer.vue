@@ -37,7 +37,7 @@
           />
           <label
             :for="option.uuid"
-            class="ml-3 label"
+            class="ml-3 custom-label"
           >
             {{ option.text }}
           </label>
@@ -58,7 +58,7 @@
           />
           <label
             :for="option.uuid"
-            class="ml-3 label"
+            class="ml-3 custom-label"
           >
             {{ option.text }}
           </label>
