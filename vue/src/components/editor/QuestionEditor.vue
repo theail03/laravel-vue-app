@@ -11,18 +11,7 @@
       <button
         type="button"
         @click="addQuestion()"
-        class="
-          flex
-          items-center
-          text-xs
-          py-1
-          px-3
-          mr-2
-          rounded-sm
-          text-white
-          bg-gray-600
-          hover:bg-gray-700
-        "
+        class="flex items-center text-xs rounded-sm text-white bg-gray-600 hover:bg-gray-700 py-1 px-3 mr-2"
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -44,17 +33,7 @@
       <button
         type="button"
         @click="deleteQuestion()"
-        class="
-          flex
-          items-center
-          text-xs
-          py-1
-          px-3
-          rounded-sm
-          border border-transparent
-          text-red-500
-          hover:border-red-600
-        "
+        class="flex items-center text-xs rounded-sm border border-transparent text-red-500 hover:border-red-600 py-1 px-3"
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -88,16 +67,7 @@
         v-model="model.question"
         @change="dataChange"
         :id="'question_text_' + model.data"
-        class="
-          mt-1
-          focus:ring-indigo-500 focus:border-indigo-500
-          block
-          w-full
-          shadow-sm
-          sm:text-sm
-          border-gray-300
-          rounded-md
-        "
+        class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
       />
     </div>
     <!--/ Question -->
@@ -112,20 +82,9 @@
         name="question_type"
         v-model="model.type"
         @change="typeChange"
-        class="
-          mt-1
-          block
-          w-full
-          py-2
-          px-3
-          border border-gray-300
-          bg-white
-          rounded-md
-          shadow-sm
-          focus:outline-none focus:ring-indigo-500 focus:border-indigo-500
-          sm:text-sm
-        "
-      >
+        class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md
+          border bg-white focus:outline-none py-2 px-3"
+      >   
         <option v-for="type in questionTypes" :key="type" :value="type">
           {{ upperCaseFirst(type) }}
         </option>
@@ -146,16 +105,7 @@
       v-model="model.description"
       @change="dataChange"
       :id="'question_description_' + model.id"
-      class="
-        mt-1
-        focus:ring-indigo-500 focus:border-indigo-500
-        block
-        w-full
-        shadow-sm
-        sm:text-sm
-        border-gray-300
-        rounded-md
-      "
+      class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
     />
   </div>
   <!--/ Question Description -->
@@ -170,17 +120,7 @@
         <button
           type="button"
           @click="addOption()"
-          class="
-            flex
-            items-center
-            text-xs
-            py-1
-            px-2
-            rounded-sm
-            text-white
-            bg-gray-600
-            hover:bg-gray-700
-          "
+          class="flex items-center text-xs rounded-sm text-white bg-gray-600 hover:bg-gray-700 py-1 px-2"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -217,31 +157,14 @@
           tabindex="1"
           v-model="option.text"
           @change="dataChange"
-          class="
-            w-full
-            rounded-sm
-            py-1
-            px-2
-            text-xs
-            border border-gray-300
-            focus:border-indigo-500
-          "
+          class="w-full rounded-sm py-1 px-2 text-xs border border-gray-300 focus:border-indigo-500"
         />
         <!-- Delete Option -->
         <button
           type="button"
           @click="removeOption(option)"
-          class="
-            h-6
-            w-6
-            rounded-full
-            flex
-            items-center
-            justify-center
-            border border-transparent
-            transition-colors
-            hover:border-red-100
-          "
+          class="flex items-center justify-center rounded-full border border-transparent transition-colors 
+            hover:border-red-100 h-6 w-6"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
