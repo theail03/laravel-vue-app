@@ -25,7 +25,7 @@
         <div class="px-4 py-5 bg-white space-y-6 sm:p-6">
           <!-- Image -->
           <div>
-            <label class="label">
+            <label class="custom-label">
               Image
             </label>
             <div class="mt-1 flex items-center">
@@ -69,7 +69,7 @@
 
           <!-- Title -->
           <div>
-            <label for="title" class="label"
+            <label for="title" class="custom-label"
               >Title</label
             >
             <input
@@ -78,14 +78,14 @@
               id="title"
               v-model="model.title"
               autocomplete="survey_title"
-              class="input"
+              class="custom-input"
             />
           </div>
           <!--/ Title -->
 
           <!-- Description -->
           <div>
-            <label for="about" class="label">
+            <label for="about" class="custom-label">
               Description
             </label>
             <div class="mt-1">
@@ -95,7 +95,7 @@
                 rows="3"
                 v-model="model.description"
                 autocomplete="survey_description"
-                class="input border"
+                class="custom-input border"
                 placeholder="Describe your survey"
               />
             </div>
@@ -106,7 +106,7 @@
           <div>
             <label
               for="expire_date"
-              class="label"
+              class="custom-label"
               >Expire Date</label
             >
             <input
@@ -114,7 +114,7 @@
               name="expire_date"
               id="expire_date"
               v-model="model.expire_date"
-              class="input"
+              class="custom-input"
             />
           </div>
           <!--/ Expire Date -->
@@ -127,7 +127,7 @@
                 name="status"
                 type="checkbox"
                 v-model="model.status"
-                class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded"
+                class="custom-control rounded"
               />
             </div>
             <div class="ml-3 text-sm">

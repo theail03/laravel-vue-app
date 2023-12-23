@@ -58,7 +58,7 @@
     <div class="mt-3 col-span-9">
       <label
         :for="'question_text_' + model.data"
-        class="label"
+        class="custom-label"
         >Question Text</label
       >
       <input
@@ -67,14 +67,14 @@
         v-model="model.question"
         @change="dataChange"
         :id="'question_text_' + model.data"
-        class="input"
+        class="custom-input"
       />
     </div>
     <!--/ Question -->
 
     <!-- Question Type -->
     <div class="mt-3 col-span-3">
-      <label for="question_type" class="label"
+      <label for="question_type" class="custom-label"
         >Select Question Type</label
       >
       <select
@@ -82,7 +82,7 @@
         name="question_type"
         v-model="model.type"
         @change="typeChange"
-        class="input border bg-white focus:outline-none py-2 px-3"
+        class="custom-input border bg-white focus:outline-none py-2 px-3"
       >   
         <option v-for="type in questionTypes" :key="type" :value="type">
           {{ upperCaseFirst(type) }}
@@ -96,7 +96,7 @@
   <div class="mt-3 col-span-9">
     <label
       :for="'question_description_' + model.id"
-      class="label"
+      class="custom-label"
       >Description</label
     >
     <textarea
@@ -104,7 +104,7 @@
       v-model="model.description"
       @change="dataChange"
       :id="'question_description_' + model.id"
-      class="input"
+      class="custom-input"
     />
   </div>
   <!--/ Question Description -->
