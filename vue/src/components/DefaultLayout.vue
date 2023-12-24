@@ -26,11 +26,11 @@
                   v-for="item in navigation"
                   :key="item.name"
                   :to="item.to"
-                  active-class="bg-gray-900 text-white"
+                  active-class="nav-link-active"
                   :class="[
                     this.$route.name === item.to.name
                       ? ''
-                      : 'text-gray-300 hover:bg-gray-700 hover:text-white',
+                      : 'nav-link-hover',
                     'px-3 py-2 rounded-md text-sm font-medium',
                   ]"
                   >{{ item.name }}
@@ -120,11 +120,11 @@
             v-for="item in navigation"
             :key="item.name"
             :to="item.to"
-            active-class="bg-gray-900 text-white"
+            active-class="nav-link-active"
             :class="[
               this.$route.name === item.to.name
                 ? ''
-                : 'text-gray-300 hover:bg-gray-700 hover:text-white',
+                : 'nav-link-hover',
               'block px-3 py-2 rounded-md text-base font-medium',
             ]"
             >{{ item.name }}

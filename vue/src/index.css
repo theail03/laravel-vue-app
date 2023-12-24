@@ -17,3 +17,11 @@
 .custom-control {
     @apply focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300;
 }
+
+.nav-link-active {
+    @apply bg-gray-900 text-white;
+}
+
+.nav-link-hover {
+    @apply text-gray-300 hover:bg-gray-700 hover:text-white;
+}
