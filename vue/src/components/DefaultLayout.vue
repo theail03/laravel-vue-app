@@ -50,12 +50,12 @@
 
                     <div class="mx-3">
                       <div
-                        class="text-left text-base font-medium leading-none text-white"
+                        class="text-left user-name"
                       >
                         {{ user.name }}
                       </div>
                       <div
-                        class="text-sm font-medium leading-none text-gray-400"
+                        class="user-email"
                       >
                         {{ user.email }}
                       </div>
@@ -149,10 +149,10 @@
               </svg>
             </div>
             <div class="ml-3">
-              <div class="text-base font-medium leading-none text-white">
+              <div class="user-name">
                 {{ user.name }}
               </div>
-              <div class="text-sm font-medium leading-none text-gray-400">
+              <div class="user-email">
                 {{ user.email }}
               </div>
             </div>

@@ -25,3 +25,11 @@
 .nav-link-hover {
     @apply text-gray-300 hover:bg-gray-700 hover:text-white;
 }
+
+.user-name {
+    @apply text-base font-medium leading-none text-white;
+}
+
+.user-email {
+    @apply text-sm font-medium leading-none text-gray-400;
+}
