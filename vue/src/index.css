@@ -33,3 +33,7 @@
 .user-email {
     @apply text-sm font-medium leading-none text-gray-400;
 }
+
+.metric-value {
+    @apply text-8xl pb-4 font-semibold flex-1 flex items-center justify-center;
+}

@@ -8,7 +8,7 @@
       <DashboardCard class="order-1 lg:order-2" style="animation-delay: 0.1s">
         <template v-slot:title>Total Surveys</template>
         <div
-          class="text-8xl pb-4 font-semibold flex-1 flex items-center justify-center"
+          class="metric-value"
         >
           {{ data.totalSurveys }}
         </div>
@@ -16,7 +16,7 @@
       <DashboardCard class="order-2 lg:order-4" style="animation-delay: 0.2s">
         <template v-slot:title>Total Answers</template>
         <div
-          class="text-8xl pb-4 font-semibold flex-1 flex items-center justify-center"
+          class="metric-value"
         >
           {{ data.totalAnswers }}
         </div>
