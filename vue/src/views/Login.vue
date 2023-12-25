@@ -13,7 +13,7 @@
       {{ " " }}
       <router-link
         :to="{ name: 'Register' }"
-        class="font-medium text-indigo-600 hover:text-indigo-500"
+        class="account-action-text"
       >
         register for free
       </router-link>

@@ -37,3 +37,7 @@
 .metric-value {
     @apply text-8xl pb-4 font-semibold flex-1 flex items-center justify-center;
 }
+
+.account-action-text {
+    @apply font-medium text-indigo-600 hover:text-indigo-500;
+}

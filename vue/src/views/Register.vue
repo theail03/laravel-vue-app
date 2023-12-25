@@ -14,7 +14,7 @@
         {{ " " }}
         <router-link
           :to="{ name: 'Login' }"
-          class="font-medium text-indigo-600 hover:text-indigo-500"
+          class="account-action-text"
         >
           login to your account
         </router-link>
