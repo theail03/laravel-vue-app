@@ -60,9 +60,11 @@ const router = createRouter({
 });
 
 router.beforeEach((to, from, next) => {
-  if (to.meta.requiresAuth && !store.state.user.token) {
+  const isUserDataSet = Object.keys(store.state.user.data).length > 0;
+
+  if (to.meta.requiresAuth && !isUserDataSet) {
     next({ name: "Login" });
-  } else if (store.state.user.token && to.meta.isGuest) {
+  } else if (isUserDataSet && to.meta.isGuest) {
     next({ name: "Dashboard" });
   } else {
     next();

@@ -93,7 +93,7 @@
 
     <div class="mt-2 text-center text-sm">
       <a
-        href="#"
+        :href="googleAuthUrl"
         class="account-action-text"
       >
         Login with Google
@@ -119,6 +119,7 @@ const user = {
 };
 let loading = ref(false);
 let errorMsg = ref("");
+const googleAuthUrl = ref(`${import.meta.env.VITE_API_BASE_URL}/google-auth/redirect`);
 
 function login(ev) {
   ev.preventDefault();

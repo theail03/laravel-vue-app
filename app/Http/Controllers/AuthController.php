@@ -13,6 +13,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Testing\Fluent\Concerns\Has;
 use Illuminate\Validation\Rules\Password;
+use Laravel\Socialite\Facades\Socialite;
 
 /**
  * Class AuthController
@@ -22,64 +23,31 @@ use Illuminate\Validation\Rules\Password;
  */
 class AuthController extends Controller
 {
-    public function register(Request $request)
+    public function googleAuthRedirect()
     {
-        $data = $request->validate([
-            'name' => 'required|string',
-            'email' => 'required|email|string|unique:users,email',
-            'password' => [
-                'required',
-                'confirmed',
-                Password::min(8)->mixedCase()->numbers()->symbols()
-            ]
-        ]);
-
-        /** @var \App\Models\User $user */
-        $user = User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => bcrypt($data['password'])
-        ]);
-        $token = $user->createToken('main')->plainTextToken;
-
-        return response([
-            'user' => $user,
-            'token' => $token
-        ]);
+        return Socialite::driver('google')->redirect();
     }
 
-    public function login(Request $request)
+    public function googleAuthCallback(Request $request)
     {
-        $credentials = $request->validate([
-            'email' => 'required|email|string|exists:users,email',
-            'password' => [
-                'required',
-            ],
-            'remember' => 'boolean'
-        ]);
-        $remember = $credentials['remember'] ?? false;
-        unset($credentials['remember']);
+        $user_google = Socialite::driver('google')->stateless()->user();
 
-        if (!Auth::attempt($credentials, $remember)) {
-            return response([
-                'error' => 'The Provided credentials are not correct'
-            ], 422);
-        }
-        $user = Auth::user();
-        $token = $user->createToken('main')->plainTextToken;
+        $user = User::updateOrCreate(
+            ['google_id' => $user_google->id],
+            [
+                'name' => $user_google->name,
+                'email' => $user_google->email,
+            ]
+        );
 
-        return response([
-            'user' => $user,
-            'token' => $token
-        ]);
+        Auth::login($user);
+    
+        return redirect('http://localhost:3000/dashboard');
     }
 
     public function logout()
     {
-        /** @var User $user */
-        $user = Auth::user();
-        // Revoke the token that was used to authenticate the current request...
-        $user->currentAccessToken()->delete();
+        Auth::logout();
 
         return response([
             'success' => true
