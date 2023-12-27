@@ -90,6 +90,15 @@
         Sign in
       </TButtonLoading>
     </div>
+
+    <div class="mt-2 text-center text-sm">
+      <a
+        href="#"
+        class="account-action-text"
+      >
+        Login with Google
+      </a>
+    </div>
   </form>
 </template>
 
