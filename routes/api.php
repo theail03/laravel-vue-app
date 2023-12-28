@@ -30,7 +30,3 @@ Route::post('/survey/{survey}/answer', [\App\Http\Controllers\SurveyController::
 
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
-
-Route::get('/google-auth/redirect', [AuthController::class, 'googleAuthRedirect']);
- 
-Route::get('/google-auth/callback', [AuthController::class, 'googleAuthCallback']);
