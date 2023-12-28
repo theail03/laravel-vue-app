@@ -51,9 +51,8 @@ const store = createStore({
         })
     },
     getUser({commit}) {
-      return axiosClient.get('/user')
+      return axiosClient.get('/user', { withCredentials: true })
       .then(res => {
-        console.log(res);
         commit('setUser', res.data)
       })
     },

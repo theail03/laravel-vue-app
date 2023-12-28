@@ -60,6 +60,7 @@ const router = createRouter({
 });
 
 router.beforeEach((to, from, next) => {
+  store.dispatch("getUser");
   const isUserDataSet = Object.keys(store.state.user.data).length > 0;
 
   if (to.meta.requiresAuth && !isUserDataSet) {
