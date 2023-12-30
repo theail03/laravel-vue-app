@@ -28,9 +28,6 @@ Route::middleware('auth')->group(function () {
 Route::get('/survey-by-slug/{survey:slug}', [\App\Http\Controllers\SurveyController::class, 'showForGuest']);
 Route::post('/survey/{survey}/answer', [\App\Http\Controllers\SurveyController::class, 'storeAnswer']);
 
-Route::post('/register', [AuthController::class, 'register']);
-Route::post('/login', [AuthController::class, 'login']);
-
 Route::get('/user', [AuthController::class, 'getUser']);
 
 Route::get('/google-auth/redirect', [AuthController::class, 'googleAuthRedirect']);

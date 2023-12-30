@@ -10,6 +10,7 @@ use App\Http\Requests\UpdateSurveyRequest;
 use App\Models\SurveyAnswer;
 use App\Models\SurveyQuestion;
 use App\Models\SurveyQuestionAnswer;
+use App\Helpers\UserHelper;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\File;
@@ -66,10 +67,7 @@ class SurveyController extends Controller
      */
     public function show(Survey $survey, Request $request)
     {
-        $user = $request->user();
-        if ($user->id !== $survey->user_id) {
-            return abort(403, 'Unauthorized action.');
-        }
+        UserHelper::verifyUser($survey->user_id);
 
         return new SurveyResource($survey);
     }
@@ -160,10 +158,7 @@ class SurveyController extends Controller
      */
     public function destroy(Survey $survey, Request $request)
     {
-        $user = $request->user();
-        if ($user->id !== $survey->user_id) {
-            return abort(403, 'Unauthorized action.');
-        }
+        UserHelper::verifyUser($survey->user_id);
 
         $survey->delete();
 
