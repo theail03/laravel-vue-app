@@ -104,14 +104,10 @@
 
 <script setup>
 import { LockClosedIcon } from "@heroicons/vue/solid";
-import store from "../store";
-import { useRouter } from "vue-router";
 import { ref } from "vue";
 import Alert from "../components/Alert.vue";
 import TButtonLoading from "../components/core/TButtonLoading.vue";
 import TInput from "../components/core/TInput.vue";
-
-const router = useRouter();
 
 const user = {
   email: "",
@@ -123,19 +119,5 @@ const googleAuthUrl = ref(`${import.meta.env.VITE_API_BASE_URL}/google-auth/redi
 
 function login(ev) {
   ev.preventDefault();
-
-  loading.value = true;
-  store
-    .dispatch("login", user)
-    .then(() => {
-      loading.value = false;
-      router.push({
-        name: "Dashboard",
-      });
-    })
-    .catch((err) => {
-      loading.value = false;
-      errorMsg.value = err.response.data.error;
-    });
 }
 </script>
