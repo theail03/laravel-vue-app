@@ -14,8 +14,8 @@ axiosClient.interceptors.response.use(response => {
 }, error => {
   if (error.response.status === 401) {
     router.push({name: 'Login'});
-  } else if (error.response.status === 404) {
-    router.push({name: 'NotFound'});
+  } else if (error.response.status === 403 || error.response.status === 404) {
+    router.push({ name: 'Error', params: { error: error.response.status }});
   }
   throw error;
 })
