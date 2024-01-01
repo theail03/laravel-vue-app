@@ -92,5 +92,6 @@ const errors = ref({});
 
 function register(ev) {
   ev.preventDefault();
+  alert("Sign up with 'Login with Google' is now available. Direct email sign-ups are no longer supported.");
 }
 </script>
