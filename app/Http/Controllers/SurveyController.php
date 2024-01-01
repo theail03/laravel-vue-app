@@ -67,7 +67,7 @@ class SurveyController extends Controller
      */
     public function show(Survey $survey, Request $request)
     {
-        UserHelper::verifyUser($survey->user_id);
+        UserHelper::authorizeUser($survey->user_id);
 
         return new SurveyResource($survey);
     }
@@ -158,7 +158,7 @@ class SurveyController extends Controller
      */
     public function destroy(Survey $survey, Request $request)
     {
-        UserHelper::verifyUser($survey->user_id);
+        UserHelper::authorizeUser($survey->user_id);
 
         $survey->delete();
 

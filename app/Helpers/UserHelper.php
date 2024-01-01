@@ -7,20 +7,29 @@ use Illuminate\Support\Facades\Auth;
 
 class UserHelper
 {
-
+    
     /**
-     * Check if the given user ID is different from the logged-in user's ID.
-     * If different, return a 403 error response; otherwise, return null.
+     * Check if the current user's ID matches the given user ID.
+     * Return true if they match, false otherwise.
      *
-     * @param \Illuminate\Http\Request $request
      * @param int $userId
-     * @return \Symfony\Component\HttpFoundation\Response|null
+     * @return bool
      */
     public static function verifyUser($userId)
     {
         $user = Auth::user();
+        return $user && $user->id == $userId;
+    }
 
-        if ($user && $user->id !== $userId) {
+    /**
+     * Perform user verification and abort if unauthorized.
+     *
+     * @param int $userId
+     * @return \Symfony\Component\HttpFoundation\Response|null
+     */
+    public static function authorizeUser($userId)
+    {
+        if (!self::verifyUser($userId)) {
             return abort(403, 'Unauthorized action.');
         }
 
