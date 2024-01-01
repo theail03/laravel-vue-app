@@ -57,7 +57,6 @@ const answers = ref({});
 store.dispatch("getSurveyBySlug", route.params.slug);
 
 function submitSurvey() {
-  console.log(JSON.stringify(answers.value, undefined, 2));
   store
     .dispatch("saveSurveyAnswer", {
       surveyId: survey.value.id,
@@ -66,6 +65,21 @@ function submitSurvey() {
     .then((response) => {
       if (response.status === 201) {
         surveyFinished.value = true;
+      }
+    })
+    .catch((error) => {
+      console.error(error);
+      if (error.response && error.response.data && error.response.data.errors) {
+        let errorMessages = error.response.data.errors;
+        let errorDetails = [];
+        for (let key in errorMessages) {
+          if (errorMessages.hasOwnProperty(key)) {
+            errorDetails.push(`${key}: ${errorMessages[key].join(' ')}`);
+          }
+        }
+        alert("An error occurred while saving the survey response: " + errorDetails.join('\n'));
+      } else {
+        alert("An error occurred while saving the survey response: " + error.message);
       }
     });
 }
