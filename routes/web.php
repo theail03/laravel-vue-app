@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AuthController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,3 +17,19 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::middleware('auth')->group(function () {
+    Route::post('/logout', [AuthController::class, 'logout']);
+    Route::resource('/survey', \App\Http\Controllers\SurveyController::class);
+
+    Route::get('/dashboard', [\App\Http\Controllers\DashboardController::class, 'index']);
+});
+
+Route::get('/survey-by-slug/{survey:slug}', [\App\Http\Controllers\SurveyController::class, 'showForGuest']);
+Route::post('/survey/{survey}/answer', [\App\Http\Controllers\SurveyController::class, 'storeAnswer']);
+
+Route::get('/user', [AuthController::class, 'getUser']);
+
+Route::get('/google-auth/redirect', [AuthController::class, 'googleAuthRedirect']);
+ 
+Route::get('/google-auth/callback', [AuthController::class, 'googleAuthCallback']);

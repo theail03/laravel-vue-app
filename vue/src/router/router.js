@@ -4,11 +4,11 @@ import Surveys from "../views/Surveys.vue";
 import SurveyView from "../views/SurveyView.vue";
 import Login from "../views/Login.vue";
 import Register from "../views/Register.vue";
-import NotFound from "../views/NotFound.vue";
+import ErrorPage from "../views/ErrorPage.vue";
 import SurveyPublicView from "../views/SurveyPublicView.vue";
 import DefaultLayout from "../components/DefaultLayout.vue";
 import AuthLayout from "../components/AuthLayout.vue";
-import store from "../store";
+import store from "../store/store";
 
 const routes = [
   {
@@ -48,9 +48,10 @@ const routes = [
     ],
   },
   {
-    path: '/404',
-    name: 'NotFound',
-    component: NotFound
+    path: '/:error', 
+    name: 'Error',
+    component: ErrorPage,
+    props: true, 
   }
 ];
 
@@ -59,10 +60,13 @@ const router = createRouter({
   routes,
 });
 
-router.beforeEach((to, from, next) => {
-  if (to.meta.requiresAuth && !store.state.user.token) {
+router.beforeEach(async (to, from, next) => {
+  await store.dispatch("getUser");
+  const isUserDataSet = Object.keys(store.state.user.data).length > 0;
+
+  if (to.meta.requiresAuth && !isUserDataSet) {
     next({ name: "Login" });
-  } else if (store.state.user.token && to.meta.isGuest) {
+  } else if (isUserDataSet && to.meta.isGuest) {
     next({ name: "Dashboard" });
   } else {
     next();

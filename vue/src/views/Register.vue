@@ -78,14 +78,10 @@
 
 <script setup>
 import { ref } from "vue";
-import { LockClosedIcon } from "@heroicons/vue/solid";
-import store from "../store";
-import { useRouter } from "vue-router";
 import TButtonLoading from "../components/core/TButtonLoading.vue";
 import TInput from "../components/core/TInput.vue";
 import Alert from "../components/Alert.vue";
 
-const router = useRouter();
 const user = {
   name: "",
   email: "",
@@ -96,20 +92,5 @@ const errors = ref({});
 
 function register(ev) {
   ev.preventDefault();
-  loading.value = true;
-  store
-    .dispatch("register", user)
-    .then(() => {
-      loading.value = false;
-      router.push({
-        name: "Dashboard",
-      });
-    })
-    .catch((error) => {
-      loading.value = false;
-      if (error.response.status === 422) {
-        errors.value = error.response.data.errors;
-      }
-    });
 }
 </script>
