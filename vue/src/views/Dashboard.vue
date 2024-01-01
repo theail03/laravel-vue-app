@@ -62,7 +62,7 @@
               Edit Survey
             </TButton>
 
-            <TButton link>
+            <TButton link @click="showAlert">
               <EyeIcon class="w-5 h-5 mr-2" />
               View Answers
             </TButton>
@@ -80,6 +80,7 @@
             <a
               href="javascript:void(0)"
               class="text-sm text-blue-500 hover:decoration-blue-500"
+              @click="showAlert"
             >
               View all
             </a>
@@ -122,6 +123,10 @@ const loading = computed(() => store.state.dashboard.loading);
 const data = computed(() => store.state.dashboard.data);
 
 store.dispatch("getDashboardData");
+
+const showAlert = () => {
+  alert('This feature is not implemented yet.');
+};
 </script>
 
 <style scoped></style>
