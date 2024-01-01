@@ -2,7 +2,7 @@
  * Created by Zura on 12/25/2021.
  */
 import axios from "axios";
-import router from "./router";
+import router from "./router/router";
 
 const axiosClient = axios.create({
   baseURL: `${import.meta.env.VITE_API_BASE_URL}`,

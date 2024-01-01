@@ -196,7 +196,7 @@ import { v4 as uuidv4 } from "uuid";
 import { computed, ref, watch } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import { SaveIcon, TrashIcon, ExternalLinkIcon } from '@heroicons/vue/solid'
-import store from "../store";
+import store from "../store/store";
 import PageComponent from "../components/PageComponent.vue";
 import QuestionEditor from "../components/editor/QuestionEditor.vue";
 import TButton from "../components/core/TButton.vue";

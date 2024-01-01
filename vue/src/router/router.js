@@ -8,7 +8,7 @@ import ErrorPage from "../views/ErrorPage.vue";
 import SurveyPublicView from "../views/SurveyPublicView.vue";
 import DefaultLayout from "../components/DefaultLayout.vue";
 import AuthLayout from "../components/AuthLayout.vue";
-import store from "../store";
+import store from "../store/store";
 
 const routes = [
   {

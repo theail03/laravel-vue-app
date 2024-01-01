@@ -56,7 +56,7 @@
 </template>
 
 <script setup>
-import store from "../store";
+import store from "../store/store";
 import { computed } from "vue";
 import {PlusIcon} from "@heroicons/vue/solid"
 import TButton from '../components/core/TButton.vue'
