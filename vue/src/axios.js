@@ -1,6 +1,3 @@
-/**
- * Created by Zura on 12/25/2021.
- */
 import axios from "axios";
 import router from "./router/router";
 import { handleErrorResponse } from "./utils/errorHandler";

@@ -1,9 +1,4 @@
 <?php
-/**
- * User: Zura
- * Date: 12/19/2021
- * Time: 3:49 PM
- */
 
 namespace App\Http\Controllers;
 
@@ -18,7 +13,6 @@ use Laravel\Socialite\Facades\Socialite;
 /**
  * Class AuthController
  *
- * @author  Zura Sekhniashvili <zurasekhniashvili@gmail.com>
  * @package App\Http\Controllers
  */
 class AuthController extends Controller
