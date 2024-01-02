@@ -99,6 +99,7 @@
   // Create empty matrix
   let model = ref({
     title: "",
+    slug: "",
     rows: 1,
     columns: 1,
   });

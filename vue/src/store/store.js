@@ -126,6 +126,68 @@ const store = createStore({
     saveSurveyAnswer({commit}, {surveyId, answers}) {
       return axiosClient.post(`/survey/${surveyId}/answer`, {answers});
     },
+    
+    getMatrices({ commit }, {url = null} = {}) {
+      commit('setMatricesLoading', true)
+      url = url || "/matrix";
+      return axiosClient.get(url).then((res) => {
+        commit('setMatricesLoading', false)
+        commit("setMatrices", res.data);
+        return res;
+      });
+    },
+    getMatrix({ commit }, id) {
+      commit("setCurrentMatrixLoading", true);
+      return axiosClient
+        .get(`/matrix/${id}`)
+        .then((res) => {
+          commit("setCurrentMatrix", res.data);
+          commit("setCurrentMatrixLoading", false);
+          return res;
+        })
+        .catch((err) => {
+          commit("setCurrentMatrixLoading", false);
+          throw err;
+        });
+    },
+    getMatrixBySlug({ commit }, slug) {
+      commit("setCurrentMatrixLoading", true);
+      return axiosClient
+        .get(`/matrix-by-slug/${slug}`)
+        .then((res) => {
+          commit("setCurrentMatrix", res.data);
+          commit("setCurrentMatrixLoading", false);
+          return res;
+        })
+        .catch((err) => {
+          commit("setCurrentMatrixLoading", false);
+          throw err;
+        });
+    },
+    saveMatrix({ commit, dispatch }, matrix) {
+      let response;
+      if (matrix.id) {
+        response = axiosClient
+          .put(`/matrix/${matrix.id}`, matrix)
+          .then((res) => {
+            commit('setCurrentMatrix', res.data)
+            return res;
+          });
+      } else {
+        response = axiosClient.post("/matrix", matrix).then((res) => {
+          commit('setCurrentMatrix', res.data)
+          return res;
+        });
+      }
+
+      return response;
+    },
+    deleteMatrix({ dispatch }, id) {
+      return axiosClient.delete(`/matrix/${id}`).then((res) => {
+        dispatch('getMatrices')
+        return res;
+      });
+    },
   },
   mutations: {
     logout: (state) => {
@@ -154,6 +216,21 @@ const store = createStore({
     setCurrentSurvey: (state, survey) => {
       state.currentSurvey.data = survey.data;
     },
+
+    setMatricesLoading: (state, loading) => {
+      state.matrices.loading = loading;
+    },
+    setMatrices: (state, matrices) => {
+      state.matrices.links = matrices.meta.links;
+      state.matrices.data = matrices.data;
+    },
+    setCurrentMatrixLoading: (state, loading) => {
+      state.currentMatrix.loading = loading;
+    },
+    setCurrentMatrix: (state, matrix) => {
+      state.currentMatrix.data = matrix.data;
+    },
+    
     notify: (state, {message, type}) => {
       state.notification.show = true;
       state.notification.type = type;
