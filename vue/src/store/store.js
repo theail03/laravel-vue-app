@@ -19,6 +19,10 @@ const store = createStore({
       data: {},
       loading: false,
     },
+    currentMatrix: {
+      data: {},
+      loading: false,
+    },
     questionTypes: ["text", "select", "radio", "checkbox", "textarea"],
     notification: {
       show: false,
