@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Spatie\Sluggable\HasSlug;
 use Spatie\Sluggable\SlugOptions;
 
-class Survey extends Model
+class Matrix extends Model
 {
     use HasFactory, HasSlug;
 

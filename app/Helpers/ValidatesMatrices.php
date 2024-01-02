@@ -9,7 +9,7 @@ trait ValidatesMatrices
      *
      * @return array The validation rules.
      */
-    public function rules()
+    public function matrixRules()
     {
         return [
             'title' => 'required|string|max:255',

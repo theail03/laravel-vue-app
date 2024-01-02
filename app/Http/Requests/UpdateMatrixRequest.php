@@ -27,6 +27,6 @@ class UpdateMatrixRequest extends FormRequest
      */
     public function rules()
     {
-        return $this->rules();
+        return $this->matrixRules();
     }
 }
