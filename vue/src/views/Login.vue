@@ -119,6 +119,6 @@ const googleAuthUrl = ref(`${import.meta.env.VITE_API_BASE_URL}/google-auth/redi
 
 function login(ev) {
   ev.preventDefault();
-  alert("Please use 'Login with Google' to sign in.");
+  errorMsg.value = "Please use 'Login with Google' to sign in.";
 }
 </script>
