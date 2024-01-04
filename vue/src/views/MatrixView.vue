@@ -44,7 +44,7 @@
             <div class="matrix-view-form-group">
               <div> 
                 <label class="custom-label">Matrix</label>
-                <div class="grid justify-start gap-1" :style="{ 'grid-template-columns': `repeat(${computedColumns}, min-content)` }">
+                <div class="mt-1 grid justify-start gap-1" :style="{ 'grid-template-columns': `repeat(${computedColumns}, min-content)` }">
                   <template v-for="rowIndex in computedRows">
                     <div v-for="colIndex in computedColumns" :key="`${rowIndex}-${colIndex}`" class="w-6 h-6 bg-gray-400">
                       <!-- Content for each cell -->
