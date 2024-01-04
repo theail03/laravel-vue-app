@@ -19,55 +19,35 @@
         <div class="shadow sm:rounded-md sm:overflow-hidden">
           <!-- Matrix Fields -->
           <div class="px-4 py-5 bg-white space-y-6 sm:p-6">  
+            <!-- Matrix and Image -->
+            <div v-if="route.params.id" class="matrix-view-form-group">
+              <div> 
+                <label class="custom-label">Matrix</label>
+              </div>
+              <div> 
+                <label class="custom-label">Image</label>
+              </div>
+            </div>
+            <!-- Matrix and Image -->
+            
             <!-- Title -->
             <div>
-              <label for="title" class="custom-label"
-                >Title</label
-              >
-              <input
-                type="text"
-                name="title"
-                id="title"
-                v-model="model.title"
-                autocomplete="matrix_title"
-                class="custom-input"
-              />
+              <label for="title" class="custom-label">Title</label>
+              <input type="text" name="title" id="title" v-model="model.title" autocomplete="matrix_title" class="custom-input"/>
             </div>
             <!--/ Title -->
 
-            <!-- Rows -->
-            <div>
-              <label for="rows" class="custom-label"
-                >Rows</label
-              >
-              <input
-                type="number"
-                name="rows"
-                id="rows"
-                v-model="model.rows"
-                step="1" 
-                min="1"
-                class="custom-input"
-              />
+            <!-- Rows and Columns -->
+            <div class="matrix-view-form-group">
+              <div> 
+                <label for="rows" class="custom-label">Rows</label>
+                <input type="number" name="rows" id="rows" v-model="model.rows" step="1" min="1" class="custom-input"/>
+              </div>
+              <div> 
+                <label for="columns" class="custom-label">Columns</label>
+                <input type="number" name="columns" id="columns" v-model="model.columns" step="1"  min="1" class="custom-input"/>
+              </div>
             </div>
-            <!--/ Rows -->
-
-            <!-- Columns -->
-            <div>
-              <label for="columns" class="custom-label"
-                >Columns</label
-              >
-              <input
-                type="number"
-                name="columns"
-                id="columns"
-                v-model="model.columns"
-                step="1" 
-                min="1"
-                class="custom-input"
-              />
-            </div>
-            <!--/ Columns -->
           </div>
           
           <div class="px-4 py-3 bg-gray-50 text-right sm:px-6">
@@ -88,6 +68,7 @@
   import store from "../store/store";
   import PageComponent from "../components/PageComponent.vue";
   import TButton from "../components/core/TButton.vue";
+  import "../styles/MatrixView.css";
   
   const router = useRouter();
   
