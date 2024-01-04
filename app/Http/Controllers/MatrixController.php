@@ -49,7 +49,7 @@ class MatrixController extends Controller
      * @param \App\Models\Matrix $survey
      * @return \Illuminate\Http\Response
      */
-    public function show(Matrix $survey, Request $request)
+    public function show(Matrix $matrix, Request $request)
     {
         UserHelper::authorizeUser($matrix->user_id);
 

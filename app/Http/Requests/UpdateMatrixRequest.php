@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use App\Helpers\ValidatesMatrices;
+use App\Helpers\UserHelper;
 use Illuminate\Foundation\Http\FormRequest;
 
 class UpdateMatrixRequest extends FormRequest
