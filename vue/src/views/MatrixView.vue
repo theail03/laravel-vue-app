@@ -19,16 +19,6 @@
         <div class="shadow sm:rounded-md sm:overflow-hidden">
           <!-- Matrix Fields -->
           <div class="px-4 py-5 bg-white space-y-6 sm:p-6">  
-            <!-- Matrix and Image -->
-            <div v-if="route.params.id" class="matrix-view-form-group">
-              <div> 
-                <label class="custom-label">Matrix</label>
-              </div>
-              <div> 
-                <label class="custom-label">Image</label>
-              </div>
-            </div>
-            <!-- Matrix and Image -->
             
             <!-- Title -->
             <div>
@@ -48,6 +38,25 @@
                 <input type="number" name="columns" id="columns" v-model="model.columns" step="1"  min="1" class="custom-input"/>
               </div>
             </div>
+            <!-- Rows and Columns -->
+
+            <!-- Matrix and Image -->
+            <div class="matrix-view-form-group">
+              <div> 
+                <label class="custom-label">Matrix</label>
+                <div class="grid justify-start gap-1" :style="{ 'grid-template-columns': `repeat(${computedColumns}, min-content)` }">
+                  <template v-for="rowIndex in computedRows">
+                    <div v-for="colIndex in computedColumns" :key="`${rowIndex}-${colIndex}`" class="w-6 h-6 bg-gray-400">
+                      <!-- Content for each cell -->
+                    </div>
+                  </template>
+                </div>
+              </div>
+              <div v-if="route.params.id"> 
+                <label class="custom-label">Image</label>
+              </div>
+            </div>
+            <!-- Matrix and Image -->
           </div>
           
           <div class="px-4 py-3 bg-gray-50 text-right sm:px-6">
@@ -84,6 +93,12 @@
     rows: 1,
     columns: 1,
   });
+
+  const maxRows = 20;
+  const maxColumns = 20;
+
+  const computedRows = computed(() => Math.min(model.value.rows, maxRows));
+  const computedColumns = computed(() => Math.min(model.value.columns, maxColumns));
   
   // Watch to current matrix data change and when this happens we update local model
   watch(
