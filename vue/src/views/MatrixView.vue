@@ -48,7 +48,7 @@
                 <label class="custom-label">Matrix</label>
                 <div class="mt-1 grid justify-center gap-1" :style="{ 'grid-template-columns': `repeat(${computedColumns}, min-content)` }">
                   <template v-for="rowIndex in computedRows">
-                    <div v-for="colIndex in computedColumns" :key="`${rowIndex}-${colIndex}`" class="w-6 h-6 bg-gray-400">
+                    <div v-for="colIndex in computedColumns" :key="`${rowIndex}-${colIndex}`" class="w-6 h-6 bg-gray-400 hover:bg-gray-500" :class="{'bg-orange-500': isSelectedCell(rowIndex, colIndex)}" @click="selectCell(rowIndex, colIndex)">
                       <!-- Content for each cell -->
                     </div>
                   </template>
@@ -139,6 +139,11 @@
     columns: 1,
   });
 
+  const imageModel = ref({
+    row: null,
+    column: null,
+  });
+
   const maxRows = 20;
   const maxColumns = 20;
 
@@ -158,6 +163,17 @@
   // If the current component is rendered on matrix update route we make a request to fetch matrix
   if (route.params.id) {
     store.dispatch("getMatrix", route.params.id);
+  }
+
+  // Function to select a cell
+  function selectCell(rowIndex, colIndex) {
+    imageModel.value.row = rowIndex;
+    imageModel.value.column = colIndex;
+  }
+
+  // Function to check if a cell is selected
+  function isSelectedCell(rowIndex, colIndex) {
+    return imageModel.value.row === rowIndex && imageModel.value.column === colIndex;
   }
 
   function onImageChoose(ev) {
