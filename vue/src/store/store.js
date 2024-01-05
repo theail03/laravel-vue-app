@@ -19,7 +19,21 @@ const store = createStore({
       data: {},
       loading: false,
     },
+    matrices: {
+      loading: false,
+      links: [],
+      data: []
+    },
     currentMatrix: {
+      data: {},
+      loading: false,
+    },
+    images: {
+      loading: false,
+      links: [],
+      data: []
+    },
+    currentImage: {
       data: {},
       loading: false,
     },
@@ -188,6 +202,43 @@ const store = createStore({
         return res;
       });
     },
+
+    getImages({ commit }, matrixId) {
+      commit('setImagesLoading', true)
+      return axiosClient.get(`/image/${matrixId}`).then((res) => {
+        commit('setImagesLoading', false)
+        commit("setImages", res.data);
+        return res;
+      });
+    },
+    getImage({ commit }, matrixId, row, column) {
+      commit("setCurrentImageLoading", true);
+      return axiosClient
+        .get(`/image/${matrixId}/${row}/${column}`)
+        .then((res) => {
+          commit("setCurrentImage", res.data);
+          commit("setCurrentImageLoading", false);
+          return res;
+        })
+        .catch((err) => {
+          commit("setCurrentImageLoading", false);
+          throw err;
+        });
+    },
+    saveImage({ commit, dispatch }, image) {
+      return response = axiosClient
+        .put(`/image/${image.matrix_id}/${image.row}/${image.column}`, image)
+        .then((res) => {
+          commit('setCurrentImage', res.data)
+          return res;
+        });
+    },
+    deleteImage({ dispatch }, matrixId, row, column) {
+      return axiosClient.delete(`/image/${matrixId}/${row}/${column}`).then((res) => {
+        dispatch('getImages')
+        return res;
+      });
+    },
   },
   mutations: {
     logout: (state) => {
@@ -229,6 +280,20 @@ const store = createStore({
     },
     setCurrentMatrix: (state, matrix) => {
       state.currentMatrix.data = matrix.data;
+    },
+
+    setImagesLoading: (state, loading) => {
+      state.images.loading = loading;
+    },
+    setImages: (state, images) => {
+      state.images.links = images.meta.links;
+      state.images.data = images.data;
+    },
+    setCurrentImageLoading: (state, loading) => {
+      state.currentImage.loading = loading;
+    },
+    setCurrentImages: (state, matrix) => {
+      state.currentImage.data = matrix.data;
     },
     
     notify: (state, {message, type}) => {

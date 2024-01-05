@@ -74,8 +74,8 @@
                 </button>
                 <div class="mt-1 flex items-center justify-center">
                   <img
-                    v-if="model.image_url"
-                    :src="model.image_url"
+                    v-if="selectedImage"
+                    :src="selectedImage"
                     :alt="model.title"
                     class="w-4/5 object-cover"
                   />
@@ -132,12 +132,14 @@
   const matrixLoading = computed(() => store.state.currentMatrix.loading);
   
   // Create empty matrix
-  let model = ref({
+  const model = ref({
     title: "",
     slug: "",
     rows: 1,
     columns: 1,
   });
+
+  const imagesModel = ref([]);
 
   const imageModel = ref({
     row: null,
@@ -149,12 +151,35 @@
 
   const computedRows = computed(() => Math.min(model.value.rows, maxRows));
   const computedColumns = computed(() => Math.min(model.value.columns, maxColumns));
+
+  const selectedImage = computed(() => {
+    if (!imageModel.value.row || !imageModel.value.column) {
+      return null; // or some default image URL if you want
+    }
+    
+    // Assuming imagesModel is an array of image objects with row and column properties
+    const foundImage = imagesModel.value.find(image => 
+      image.row === imageModel.value.row && image.column === imageModel.value.column
+    );
+
+    return foundImage ? foundImage.url : null; // Replace 'url' with the actual property name that holds the image URL
+  });
   
   // Watch to current matrix data change and when this happens we update local model
   watch(
     () => store.state.currentMatrix.data,
     (newVal, oldVal) => {
       model.value = {
+        ...JSON.parse(JSON.stringify(newVal)),
+      };
+    }
+  );
+
+  // Watch to current image data change and when this happens we update local model
+  watch(
+    () => store.state.images.data,
+    (newVal, oldVal) => {
+      imagesModel.value = {
         ...JSON.parse(JSON.stringify(newVal)),
       };
     }
@@ -181,12 +206,14 @@
 
     const reader = new FileReader();
     reader.onload = () => {
-      // The field to send on backend and apply validations
-      model.value.image = reader.result;
-
-      // The field to display here
-      model.value.image_url = reader.result;
-      ev.target.value = "";
+      store.dispatch("saveImage", { ...imageModel.value, matrixId: route.params.id, image: reader.result }).then(({ data }) => {
+        store.commit("notify", {
+          type: "success",
+          message: "The image was successfully saved",
+        });
+        store.dispatch("getImages", route.params.id);
+        ev.target.value = "";
+      });
     };
     reader.readAsDataURL(file);
   }
