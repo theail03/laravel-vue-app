@@ -72,12 +72,12 @@
                   />
                   Change
                 </button>
-                <div class="mt-1 flex items-center">
+                <div class="mt-1 flex items-center justify-center">
                   <img
                     v-if="model.image_url"
                     :src="model.image_url"
                     :alt="model.title"
-                    class="w-full h-full object-cover"
+                    class="w-4/5 object-cover"
                   />
                   <span
                     v-else
