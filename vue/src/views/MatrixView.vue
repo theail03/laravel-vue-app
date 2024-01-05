@@ -38,13 +38,15 @@
                 <input type="number" name="columns" id="columns" v-model="model.columns" step="1"  min="1" class="custom-input"/>
               </div>
             </div>
-            <!-- Rows and Columns -->
+            <!--/ Rows and Columns -->
 
             <!-- Matrix and Image -->
             <div class="matrix-view-form-group">
+
+              <!-- Matrix -->
               <div> 
                 <label class="custom-label">Matrix</label>
-                <div class="mt-1 grid justify-start gap-1" :style="{ 'grid-template-columns': `repeat(${computedColumns}, min-content)` }">
+                <div class="mt-1 grid justify-center gap-1" :style="{ 'grid-template-columns': `repeat(${computedColumns}, min-content)` }">
                   <template v-for="rowIndex in computedRows">
                     <div v-for="colIndex in computedColumns" :key="`${rowIndex}-${colIndex}`" class="w-6 h-6 bg-gray-400">
                       <!-- Content for each cell -->
@@ -52,11 +54,54 @@
                   </template>
                 </div>
               </div>
-              <div v-if="route.params.id"> 
-                <label class="custom-label">Image</label>
+              <!--/ Matrix -->
+
+              <!-- Image -->
+              <div v-if="route.params.id">
+                <label class="custom-label">
+                  Image
+                </label>
+                <button
+                  type="button"
+                  class="relative overflow-hidden mt-1 bg-white py-2 px-3 border border-gray-300 rounded-md shadow-sm text-sm leading-4 font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                >
+                  <input
+                    type="file"
+                    @change="onImageChoose"
+                    class="absolute left-0 top-0 right-0 bottom-0 opacity-0 cursor-pointer"
+                  />
+                  Change
+                </button>
+                <div class="mt-1 flex items-center">
+                  <img
+                    v-if="model.image_url"
+                    :src="model.image_url"
+                    :alt="model.title"
+                    class="w-full h-full object-cover"
+                  />
+                  <span
+                    v-else
+                    class="flex items-center justify-center h-12 w-12 rounded-full overflow-hidden bg-gray-100"
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      class="h-[80%] w-[80%] text-gray-300"
+                      viewBox="0 0 20 20"
+                      fill="currentColor"
+                    >
+                      <path
+                        fill-rule="evenodd"
+                        d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm12 12H4l4-8 3 6 2-4 3 6z"
+                        clip-rule="evenodd"
+                      />
+                    </svg>
+                  </span>
+                </div>
               </div>
+              <!--/ Image -->
+
             </div>
-            <!-- Matrix and Image -->
+            <!--/ Matrix and Image -->
           </div>
           
           <div class="px-4 py-3 bg-gray-50 text-right sm:px-6">
@@ -113,6 +158,21 @@
   // If the current component is rendered on matrix update route we make a request to fetch matrix
   if (route.params.id) {
     store.dispatch("getMatrix", route.params.id);
+  }
+
+  function onImageChoose(ev) {
+    const file = ev.target.files[0];
+
+    const reader = new FileReader();
+    reader.onload = () => {
+      // The field to send on backend and apply validations
+      model.value.image = reader.result;
+
+      // The field to display here
+      model.value.image_url = reader.result;
+      ev.target.value = "";
+    };
+    reader.readAsDataURL(file);
   }
   
   /**
