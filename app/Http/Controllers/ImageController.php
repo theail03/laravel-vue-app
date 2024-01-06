@@ -3,7 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\Image;
+use App\Models\Matrix;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\File;
+use App\Http\Resources\ImageResource;
 
 class ImageController extends Controller
 {
