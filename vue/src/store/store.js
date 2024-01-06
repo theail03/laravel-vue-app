@@ -205,7 +205,7 @@ const store = createStore({
 
     getImages({ commit }, matrixId) {
       commit('setImagesLoading', true)
-      return axiosClient.get(`/image/${matrixId}`).then((res) => {
+      return axiosClient.get(`/matrix/${matrixId}/images`).then((res) => {
         commit('setImagesLoading', false)
         commit("setImages", res.data);
         return res;
@@ -214,7 +214,7 @@ const store = createStore({
     getImage({ commit }, matrixId, row, column) {
       commit("setCurrentImageLoading", true);
       return axiosClient
-        .get(`/image/${matrixId}/${row}/${column}`)
+        .get(`/matrix/${matrixId}/image/${row}/${column}`)
         .then((res) => {
           commit("setCurrentImage", res.data);
           commit("setCurrentImageLoading", false);
@@ -227,14 +227,14 @@ const store = createStore({
     },
     saveImage({ commit, dispatch }, image) {
       return response = axiosClient
-        .put(`/image/${image.matrix_id}/${image.row}/${image.column}`, image)
+        .put(`/matrix/${image.matrix_id}/image/${image.row}/${image.column}`, image)
         .then((res) => {
           commit('setCurrentImage', res.data)
           return res;
         });
     },
     deleteImage({ dispatch }, matrixId, row, column) {
-      return axiosClient.delete(`/image/${matrixId}/${row}/${column}`).then((res) => {
+      return axiosClient.delete(`/matrix/${matrixId}/image/${row}/${column}`).then((res) => {
         dispatch('getImages')
         return res;
       });
