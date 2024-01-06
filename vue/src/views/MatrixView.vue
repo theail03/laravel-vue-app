@@ -188,6 +188,7 @@
   // If the current component is rendered on matrix update route we make a request to fetch matrix
   if (route.params.id) {
     store.dispatch("getMatrix", route.params.id);
+    store.dispatch("getImages", route.params.id);
   }
 
   // Function to select a cell
