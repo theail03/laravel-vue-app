@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 use App\Http\Resources\ImageResource;
+use App\Http\Requests\SaveImageRequest;
 
 class ImageController extends Controller
 {
@@ -46,7 +47,7 @@ class ImageController extends Controller
     }
 
     // Save (create or update) a specific image
-    public function saveImage(Request $request, $matrixId, $row, $column)
+    public function saveImage(SaveImageRequest $request, $matrixId, $row, $column)
     {
         // Retrieve the currently authenticated user
         $user = Auth::user();
@@ -56,10 +57,7 @@ class ImageController extends Controller
                         ->where('user_id', $user->id)
                         ->firstOrFail();
 
-        // Validate the request data
-        $data = $request->validated();
-
-        $image = $data['image'];
+        $image = $request->input('data'); // This is the base64-encoded image data.
 
         // Check if image is valid base64 string
         if (preg_match('/^data:image\/(\w+);base64,/', $image, $type)) {
@@ -100,7 +98,7 @@ class ImageController extends Controller
             ],
             [
                 'user_id' => Auth::id(),
-                'image_path' => $relativePath // This is the path where the image is saved
+                'path' => $relativePath // This is the path where the image is saved
             ]
         );
 

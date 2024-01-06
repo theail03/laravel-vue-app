@@ -226,8 +226,8 @@ const store = createStore({
         });
     },
     saveImage({ commit, dispatch }, image) {
-      return response = axiosClient
-        .put(`/matrix/${image.matrix_id}/image/${image.row}/${image.column}`, image)
+      return axiosClient
+        .put(`/matrix/${image.matrixId}/image/${image.row}/${image.column}`, image)
         .then((res) => {
           commit('setCurrentImage', res.data)
           return res;
@@ -286,14 +286,13 @@ const store = createStore({
       state.images.loading = loading;
     },
     setImages: (state, images) => {
-      state.images.links = images.meta.links;
       state.images.data = images.data;
     },
     setCurrentImageLoading: (state, loading) => {
       state.currentImage.loading = loading;
     },
-    setCurrentImages: (state, matrix) => {
-      state.currentImage.data = matrix.data;
+    setCurrentImage: (state, image) => {
+      state.currentImage.data = image.data;
     },
     
     notify: (state, {message, type}) => {

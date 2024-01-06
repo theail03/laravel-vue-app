@@ -158,7 +158,7 @@
     }
     
     // Assuming imagesModel is an array of image objects with row and column properties
-    const foundImage = imagesModel.value.find(image => 
+    const foundImage = imagesModel.value.data?.find(image => 
       image.row === imageModel.value.row && image.column === imageModel.value.column
     );
 
@@ -207,7 +207,7 @@
 
     const reader = new FileReader();
     reader.onload = () => {
-      store.dispatch("saveImage", { ...imageModel.value, matrixId: route.params.id, image: reader.result }).then(({ data }) => {
+      store.dispatch("saveImage", { ...imageModel.value, matrixId: route.params.id, data: reader.result }).then(({ data }) => {
         store.commit("notify", {
           type: "success",
           message: "The image was successfully saved",

@@ -26,10 +26,7 @@ class SaveImageRequest extends FormRequest
     public function rules()
     {
         return [
-            'matrixId' => 'required|exists:matrices,id', 
-            'row' => 'required|integer',
-            'column' => 'required|integer',
-            'image' => 'required|string', // This is a base64 string
+            'data' => 'required|string',
         ];
     }
 }
