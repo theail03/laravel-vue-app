@@ -46,26 +46,26 @@ const store = createStore({
     logout({commit}) {
       return axiosClient.post('/logout')
         .then(response => {
-          commit('logout')
+          commit('logout');
           return response;
         })
     },
     getUser({commit}) {
       return axiosClient.get('/user')
       .then(res => {
-        commit('setUser', res.data)
+        commit('setUser', res.data);
       })
     },
     getDashboardData({commit}) {
       commit('dashboardLoading', true)
       return axiosClient.get(`/dashboard`)
       .then((res) => {
-        commit('dashboardLoading', false)
-        commit('setDashboardData', res.data)
+        commit('dashboardLoading', false);
+        commit('setDashboardData', res.data);
         return res;
       })
       .catch(error => {
-        commit('dashboardLoading', false)
+        commit('dashboardLoading', false);
         return error;
       })
 
@@ -74,7 +74,7 @@ const store = createStore({
       commit('setSurveysLoading', true)
       url = url || "/survey";
       return axiosClient.get(url).then((res) => {
-        commit('setSurveysLoading', false)
+        commit('setSurveysLoading', false);
         commit("setSurveys", res.data);
         return res;
       });
@@ -120,7 +120,7 @@ const store = createStore({
           });
       } else {
         response = axiosClient.post("/survey", survey).then((res) => {
-          commit('setCurrentSurvey', res.data)
+          commit('setCurrentSurvey', res.data);
           return res;
         });
       }
@@ -129,7 +129,7 @@ const store = createStore({
     },
     deleteSurvey({ dispatch }, id) {
       return axiosClient.delete(`/survey/${id}`).then((res) => {
-        dispatch('getSurveys')
+        dispatch('getSurveys');
         return res;
       });
     },
@@ -141,7 +141,7 @@ const store = createStore({
       commit('setMatricesLoading', true)
       url = url || "/matrix";
       return axiosClient.get(url).then((res) => {
-        commit('setMatricesLoading', false)
+        commit('setMatricesLoading', false);
         commit("setMatrices", res.data);
         return res;
       });
@@ -180,12 +180,12 @@ const store = createStore({
         response = axiosClient
           .put(`/matrix/${matrix.id}`, matrix)
           .then((res) => {
-            commit('setCurrentMatrix', res.data)
+            commit('setCurrentMatrix', res.data);
             return res;
           });
       } else {
         response = axiosClient.post("/matrix", matrix).then((res) => {
-          commit('setCurrentMatrix', res.data)
+          commit('setCurrentMatrix', res.data);
           return res;
         });
       }
@@ -194,7 +194,7 @@ const store = createStore({
     },
     deleteMatrix({ dispatch }, id) {
       return axiosClient.delete(`/matrix/${id}`).then((res) => {
-        dispatch('getMatrices')
+        dispatch('getMatrices');
         return res;
       });
     },
@@ -202,7 +202,7 @@ const store = createStore({
     getImages({ commit }, matrixId) {
       commit('setImagesLoading', true)
       return axiosClient.get(`/matrix/${matrixId}/images`).then((res) => {
-        commit('setImagesLoading', false)
+        commit('setImagesLoading', false);
         commit("setImages", res.data);
         return res;
       });
@@ -216,7 +216,7 @@ const store = createStore({
     },
     deleteImage({ dispatch }, matrixId, row, column) {
       return axiosClient.delete(`/matrix/${matrixId}/image/${row}/${column}`).then((res) => {
-        dispatch('getImages')
+        dispatch('getImages');
         return res;
       });
     },
