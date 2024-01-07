@@ -50,6 +50,7 @@
                   <template v-for="rowIndex in computedRows">
                     <div v-for="colIndex in computedColumns" :key="`${rowIndex}-${colIndex}`" class="w-6 h-6 bg-gray-400 hover:bg-gray-500" :class="{'bg-orange-500': isSelectedCell(rowIndex, colIndex)}" @click="selectCell(rowIndex, colIndex)">
                       <!-- Content for each cell -->
+                      <img v-if="getImage(rowIndex, colIndex)" :src="getImage(rowIndex, colIndex)" :alt="`Image for row ${rowIndex} column ${colIndex}`" class="w-full h-full object-cover" />
                     </div>
                   </template>
                 </div>
@@ -157,13 +158,16 @@
       return null;
     }
     
-    // matrixImages is an array of image objects with row and column properties
-    const foundImage = matrixImages.value.find(image => 
-      image.row === selectedCell.value.row && image.column === selectedCell.value.column
-    );
-
-    return foundImage ? foundImage.path : null;
+    return getImage(selectedCell.value.row, selectedCell.value.column);
   });
+
+  function getImage(row, column) {
+    // matrixImages is an array of image objects with row, column, and path properties
+    const image = matrixImages.value.find(image => 
+      image.row === row && image.column === column
+    );
+    return image ? image.path : null;
+  }
   
   // Watch to current matrix data change and when this happens we update local model
   watch(

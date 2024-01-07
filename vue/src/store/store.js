@@ -211,7 +211,6 @@ const store = createStore({
       return axiosClient
         .put(`/matrix/${image.matrixId}/image/${image.row}/${image.column}`, { data: image.data })
         .then((res) => {
-          commit('setCurrentImage', res.data)
           return res;
         });
     },
