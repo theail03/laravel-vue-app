@@ -158,11 +158,11 @@
     }
     
     // Assuming imagesModel is an array of image objects with row and column properties
-    const foundImage = imagesModel.value.data?.find(image => 
+    const foundImage = imagesModel.value.find(image => 
       image.row === imageModel.value.row && image.column === imageModel.value.column
     );
 
-    return foundImage ? foundImage.url : null; // Replace 'url' with the actual property name that holds the image URL
+    return foundImage ? foundImage.path : null;
   });
   
   // Watch to current matrix data change and when this happens we update local model
@@ -175,13 +175,11 @@
     }
   );
 
-  // Watch to current image data change and when this happens we update local model
+  // Watch to images data change and when this happens we update local model
   watch(
     () => store.state.images.data,
     (newVal, oldVal) => {
-      imagesModel.value = {
-        ...JSON.parse(JSON.stringify(newVal)),
-      };
+      imagesModel.value = [...newVal];
     }
   );
   
