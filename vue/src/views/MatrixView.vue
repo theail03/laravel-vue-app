@@ -139,9 +139,9 @@
     columns: 1,
   });
 
-  const imagesModel = ref([]);
+  const matrixImages = ref([]);
 
-  const imageModel = ref({
+  const selectedCell = ref({
     row: null,
     column: null,
   });
@@ -153,13 +153,13 @@
   const computedColumns = computed(() => Math.min(model.value.columns, maxColumns));
 
   const selectedImage = computed(() => {
-    if (!imageModel.value.row || !imageModel.value.column) {
-      return null; // or some default image URL if you want
+    if (!selectedCell.value.row || !selectedCell.value.column) {
+      return null;
     }
     
-    // Assuming imagesModel is an array of image objects with row and column properties
-    const foundImage = imagesModel.value.find(image => 
-      image.row === imageModel.value.row && image.column === imageModel.value.column
+    // matrixImages is an array of image objects with row and column properties
+    const foundImage = matrixImages.value.find(image => 
+      image.row === selectedCell.value.row && image.column === selectedCell.value.column
     );
 
     return foundImage ? foundImage.path : null;
@@ -179,7 +179,7 @@
   watch(
     () => store.state.images.data,
     (newVal, oldVal) => {
-      imagesModel.value = [...newVal];
+      matrixImages.value = [...newVal];
     }
   );
   
@@ -191,13 +191,13 @@
 
   // Function to select a cell
   function selectCell(rowIndex, colIndex) {
-    imageModel.value.row = rowIndex;
-    imageModel.value.column = colIndex;
+    selectedCell.value.row = rowIndex;
+    selectedCell.value.column = colIndex;
   }
 
   // Function to check if a cell is selected
   function isSelectedCell(rowIndex, colIndex) {
-    return imageModel.value.row === rowIndex && imageModel.value.column === colIndex;
+    return selectedCell.value.row === rowIndex && selectedCell.value.column === colIndex;
   }
 
   function onImageChoose(ev) {
@@ -205,7 +205,7 @@
 
     const reader = new FileReader();
     reader.onload = () => {
-      store.dispatch("saveImage", { ...imageModel.value, matrixId: route.params.id, data: reader.result }).then(({ data }) => {
+      store.dispatch("saveImage", { ...selectedCell.value, matrixId: route.params.id, data: reader.result }).then(({ data }) => {
         store.commit("notify", {
           type: "success",
           message: "The image was successfully saved",
