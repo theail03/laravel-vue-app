@@ -33,10 +33,6 @@ const store = createStore({
       links: [],
       data: []
     },
-    currentImage: {
-      data: {},
-      loading: false,
-    },
     questionTypes: ["text", "select", "radio", "checkbox", "textarea"],
     notification: {
       show: false,
@@ -211,20 +207,6 @@ const store = createStore({
         return res;
       });
     },
-    getImage({ commit }, matrixId, row, column) {
-      commit("setCurrentImageLoading", true);
-      return axiosClient
-        .get(`/matrix/${matrixId}/image/${row}/${column}`)
-        .then((res) => {
-          commit("setCurrentImage", res.data);
-          commit("setCurrentImageLoading", false);
-          return res;
-        })
-        .catch((err) => {
-          commit("setCurrentImageLoading", false);
-          throw err;
-        });
-    },
     saveImage({ commit, dispatch }, image) {
       return axiosClient
         .put(`/matrix/${image.matrixId}/image/${image.row}/${image.column}`, { data: image.data })
@@ -287,12 +269,6 @@ const store = createStore({
     },
     setImages: (state, images) => {
       state.images.data = images.data;
-    },
-    setCurrentImageLoading: (state, loading) => {
-      state.currentImage.loading = loading;
-    },
-    setCurrentImage: (state, image) => {
-      state.currentImage.data = image.data;
     },
     
     notify: (state, {message, type}) => {
