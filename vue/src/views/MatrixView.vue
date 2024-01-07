@@ -28,7 +28,7 @@
             <!--/ Title -->
 
             <!-- Rows and Columns -->
-            <div class="matrix-view-form-group">
+            <div class="matrix-view-form-group grid-cols-2">
               <div> 
                 <label for="rows" class="custom-label">Rows</label>
                 <input type="number" name="rows" id="rows" v-model="model.rows" step="1" min="1" class="custom-input"/>
