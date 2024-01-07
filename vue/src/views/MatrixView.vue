@@ -214,7 +214,6 @@
           type: "success",
           message: "The image was successfully saved",
         });
-        store.dispatch("getImages", route.params.id);
         ev.target.value = "";
       });
     };

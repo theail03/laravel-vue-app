@@ -211,12 +211,13 @@ const store = createStore({
       return axiosClient
         .put(`/matrix/${image.matrixId}/image/${image.row}/${image.column}`, { data: image.data })
         .then((res) => {
+          dispatch('getImages', image.matrixId);
           return res;
         });
     },
     deleteImage({ dispatch }, matrixId, row, column) {
       return axiosClient.delete(`/matrix/${matrixId}/image/${row}/${column}`).then((res) => {
-        dispatch('getImages');
+        dispatch('getImages', image.matrixId);
         return res;
       });
     },
