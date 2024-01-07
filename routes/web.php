@@ -27,16 +27,16 @@ Route::middleware('auth')->group(function () {
     // Image routes
 
     // Route to retrieve all images for a specific matrix
-    Route::get('/matrix/{matrixId}/images', [ImageController::class, 'getImages']);
+    Route::get('/matrix/{matrix}/images', [ImageController::class, 'getImages']);
 
     // Route to retrieve a specific image
-    Route::get('/matrix/{matrixId}/image/{row}/{column}', [ImageController::class, 'getImage']);
+    Route::get('/matrix/{matrix}/image/{row}/{column}', [ImageController::class, 'getImage']);
 
     // Route to save (create or update) a specific image
-    Route::put('/matrix/{matrixId}/image/{row}/{column}', [ImageController::class, 'saveImage']);
+    Route::put('/matrix/{matrix}/image/{row}/{column}', [ImageController::class, 'saveImage']);
 
     // Route to delete a specific image
-    Route::delete('/matrix/{matrixId}/image/{row}/{column}', [ImageController::class, 'deleteImage']);
+    Route::delete('/matrix/{matrix}/image/{row}/{column}', [ImageController::class, 'deleteImage']);
 
     
     Route::get('/dashboard', [\App\Http\Controllers\DashboardController::class, 'index']);

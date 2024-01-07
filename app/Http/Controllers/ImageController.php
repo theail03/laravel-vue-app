@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Image;
 use App\Models\Matrix;
+use App\Helpers\UserHelper;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -14,48 +15,31 @@ use App\Http\Requests\SaveImageRequest;
 class ImageController extends Controller
 {
     // Retrieve all images for a specific matrix
-    public function getImages($matrixId)
+    public function getImages(Matrix $matrix, Request $request)
     {
-        // Retrieve the currently authenticated user
-        $user = Auth::user();
+        UserHelper::authorizeUser($matrix->user_id);
 
-        // Verify that the matrix belongs to the user
-        $matrix = Matrix::where('id', $matrixId)
-                        ->where('user_id', $user->id)
-                        ->firstOrFail();
-
-        $images = Image::where('matrix_id', $matrixId)->get();
+        $images = $matrix->images;
         return ImageResource::collection($images);
     }
 
     // Retrieve a specific image
-    public function getImage($matrixId, $row, $column)
+    public function getImage(Matrix $matrix, Request $request, $row, $column)
     {
-        // Retrieve the currently authenticated user
-        $user = Auth::user();
+        UserHelper::authorizeUser($matrix->user_id);
 
-        // Verify that the matrix belongs to the user
-        $matrix = Matrix::where('id', $matrixId)
-                        ->where('user_id', $user->id)
+        // Use the relationship to find the specific image
+        $image = $matrix->images()
+                        ->where('row', $row)
+                        ->where('column', $column)
                         ->firstOrFail();
-
-        $image = Image::where('matrix_id', $matrixId)
-                      ->where('row', $row)
-                      ->where('column', $column)
-                      ->firstOrFail();
         return new ImageResource($image);
     }
 
     // Save (create or update) a specific image
-    public function saveImage(SaveImageRequest $request, $matrixId, $row, $column)
+    public function saveImage(Matrix $matrix, SaveImageRequest $request, $row, $column)
     {
-        // Retrieve the currently authenticated user
-        $user = Auth::user();
-
-        // Verify that the matrix belongs to the user
-        $matrix = Matrix::where('id', $matrixId)
-                        ->where('user_id', $user->id)
-                        ->firstOrFail();
+        UserHelper::authorizeUser($matrix->user_id);
 
         $image = $request->input('data'); // This is the base64-encoded image data.
 
@@ -92,7 +76,7 @@ class ImageController extends Controller
         // Now, create or update the Image model
         $imageModel = Image::updateOrCreate(
             [
-                'matrix_id' => $matrixId,
+                'matrix_id' => $matrix->id,
                 'row' => $row,
                 'column' => $column,
             ],
@@ -103,25 +87,19 @@ class ImageController extends Controller
         );
 
         // Return the Image model or resource
-        return new ImageResource($imageModel); // If you're using API resources
-
+        return new ImageResource($imageModel);
     }
 
     // Delete a specific image
-    public function deleteImage($matrixId, $row, $column)
+    public function deleteImage(Matrix $matrix, Request $request, $row, $column)
     {
-        // Retrieve the currently authenticated user
-        $user = Auth::user();
+        UserHelper::authorizeUser($matrix->user_id);
 
-        // Verify that the matrix belongs to the user
-        $matrix = Matrix::where('id', $matrixId)
-                        ->where('user_id', $user->id)
+        // Use the relationship to find the specific image
+        $image = $matrix->images()
+                        ->where('row', $row)
+                        ->where('column', $column)
                         ->firstOrFail();
-
-        $image = Image::where('matrix_id', $matrixId)
-                      ->where('row', $row)
-                      ->where('column', $column)
-                      ->firstOrFail();
 
         $absolutePath = public_path($image->path);
         File::delete($absolutePath);

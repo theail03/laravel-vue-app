@@ -13,8 +13,6 @@ class SaveImageRequest extends FormRequest
      */
     public function authorize()
     {
-        // You might want to do some checks to see if the user is authorized
-        // to save an image. For now, let's just return true.
         return true;
     }
 

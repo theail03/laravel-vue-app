@@ -16,7 +16,6 @@ class Image extends Model
         'path',
     ];
 
-    // Define the relationship with the Matrix model
     public function matrix()
     {
         return $this->belongsTo(Matrix::class);

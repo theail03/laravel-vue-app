@@ -19,4 +19,9 @@ class Matrix extends Model
             ->generateSlugsFrom('title')
             ->saveSlugsTo('slug');
     }
+
+    public function images()
+    {
+        return $this->hasMany(Image::class);
+    }
 }
