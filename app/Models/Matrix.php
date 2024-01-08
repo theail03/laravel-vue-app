@@ -11,7 +11,7 @@ class Matrix extends Model
 {
     use HasFactory, HasSlug;
 
-    protected $fillable = ['user_id', 'title', 'slug', 'rows', 'columns'];
+    protected $fillable = ['user_id', 'title', 'slug', 'rows', 'columns', 'is_public'];
 
     public function getSlugOptions(): SlugOptions
     {

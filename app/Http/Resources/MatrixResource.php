@@ -20,6 +20,7 @@ class MatrixResource extends JsonResource
             'slug' => $this->slug,
             'rows' => $this->rows,
             'columns' => $this->columns,
+            'is_public' => $this->is_public,
             'created_at' => (new \DateTime($this->created_at))->format('Y-m-d H:i:s'),
             'updated_at' => (new \DateTime($this->updated_at))->format('Y-m-d H:i:s'),
         ];

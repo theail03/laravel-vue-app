@@ -16,6 +16,7 @@ trait ValidatesMatrices
             'rows' => 'required|integer|min:1|max:20',
             'columns' => 'required|integer|min:1|max:20',
             'user_id' => 'exists:users,id',
+            'is_public' => 'sometimes|boolean',
         ];
     }
 }
