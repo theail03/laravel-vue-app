@@ -220,15 +220,23 @@
     return selectedCell.value.row === rowIndex && selectedCell.value.column === colIndex;
   }
 
-  function onImageChoose(ev) {
+  function checkCellSelected() {
     // Check if a cell is selected
     if (selectedCell.value.row === null || selectedCell.value.column === null) {
       store.commit("notify", {
         type: "error",
         message: "Please select a cell first.",
       });
-      ev.target.value = "";
-      return; // Exit the function early
+      return false; // Indicate that no cell is selected
+    }
+    return true; // Indicate that a cell is selected
+  }
+
+  function onImageChoose(ev) {
+    // Call the separate function to check if a cell is selected
+    if (!checkCellSelected()) {
+      ev.target.value = ""; // Clear the file input
+      return; // Exit the function early if no cell is selected
     }
 
     const file = ev.target.files[0];
@@ -281,6 +289,10 @@
   }
 
   function deleteImage() {
+    // Call the separate function to check if a cell is selected
+    if (!checkCellSelected()) {
+      return; // Exit the function early if no cell is selected
+    }
     if (
       confirm(
         `Are you sure you want to delete this image? Operation can't be undone!!`
