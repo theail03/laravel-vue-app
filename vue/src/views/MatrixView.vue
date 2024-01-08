@@ -72,17 +72,23 @@
                 <label class="custom-label">
                   Image
                 </label>
-                <button
-                  type="button"
-                  class="relative overflow-hidden mt-1 bg-white py-2 px-3 border border-gray-300 rounded-md shadow-sm text-sm leading-4 font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                >
-                  <input
-                    type="file"
-                    @change="onImageChoose"
-                    class="absolute left-0 top-0 right-0 bottom-0 opacity-0 cursor-pointer"
-                  />
-                  Change
-                </button>
+                <div class="flex">
+                  <button
+                    type="button"
+                    class="relative overflow-hidden bg-white py-2 px-3 border border-gray-300 rounded-md shadow-sm text-sm leading-4 font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 mr-2"
+                  >
+                    Change
+                    <input
+                      type="file"
+                      @change="onImageChoose"
+                      class="absolute left-0 top-0 w-full h-full opacity-0 cursor-pointer"
+                    />
+                  </button>
+                  <TButton color="red">
+                    <TrashIcon class="w-5 h-5 mr-2" />
+                    Delete
+                  </TButton>
+                </div>
                 <div class="mt-1 flex items-center justify-center">
                   <img
                     v-if="selectedImage"
