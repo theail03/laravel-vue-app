@@ -84,7 +84,7 @@
                       class="absolute left-0 top-0 w-full h-full opacity-0 cursor-pointer"
                     />
                   </button>
-                  <TButton color="red">
+                  <TButton type="button" color="red">
                     <TrashIcon class="w-5 h-5 mr-2" />
                     Delete
                   </TButton>
