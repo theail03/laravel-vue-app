@@ -215,6 +215,16 @@
   }
 
   function onImageChoose(ev) {
+    // Check if a cell is selected
+    if (selectedCell.value.row === null || selectedCell.value.column === null) {
+      store.commit("notify", {
+        type: "error",
+        message: "Please select a cell first.",
+      });
+      ev.target.value = "";
+      return; // Exit the function early
+    }
+
     const file = ev.target.files[0];
 
     const reader = new FileReader();
