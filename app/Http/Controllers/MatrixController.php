@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\DB;
 
 class MatrixController extends Controller
 {
@@ -82,9 +83,28 @@ class MatrixController extends Controller
     public function destroy(Matrix $matrix, Request $request)
     {
         UserHelper::authorizeUser($matrix->user_id);
-
-        $matrix->delete();
-
-        return response('', 204);
+    
+        // Retrieve all images associated with the matrix
+        $images = $matrix->images;
+    
+        // Begin transaction to ensure data integrity
+        DB::transaction(function () use ($matrix, $images) {
+            // Loop over each image and delete the associated file
+            foreach ($images as $image) {
+                $absolutePath = public_path($image->path);
+                if (File::exists($absolutePath)) {
+                    File::delete($absolutePath); // Delete the file from the server
+                }
+            }
+    
+            // After all files are deleted, delete the image records
+            $matrix->images()->delete();
+    
+            // Finally, delete the matrix record
+            $matrix->delete();
+        });
+    
+        // Return a 204 No Content response
+        return response()->noContent();
     }
 }
