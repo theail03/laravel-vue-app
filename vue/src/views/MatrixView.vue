@@ -48,9 +48,19 @@
                 <label class="custom-label">Matrix</label>
                 <div class="mt-1 grid justify-center gap-1" :style="{ 'grid-template-columns': `repeat(${computedColumns}, min-content)` }">
                   <template v-for="rowIndex in computedRows">
-                    <div v-for="colIndex in computedColumns" :key="`${rowIndex}-${colIndex}`" class="w-6 h-6 bg-gray-400 hover:bg-gray-500" :class="{'bg-orange-500': isSelectedCell(rowIndex, colIndex)}" @click="selectCell(rowIndex, colIndex)">
-                      <!-- Content for each cell -->
-                      <img v-if="getImage(rowIndex, colIndex)" :src="getImage(rowIndex, colIndex)" :alt="`Image for row ${rowIndex} column ${colIndex}`" class="w-full h-full object-cover" />
+                    <div v-for="colIndex in computedColumns" 
+                        :key="`${rowIndex}-${colIndex}`" 
+                        class="w-6 h-6 bg-gray-400 relative"
+                        @click="selectCell(rowIndex, colIndex)">
+                      <!-- Image or color for each cell -->
+                      <img v-if="getImage(rowIndex, colIndex)" 
+                          :src="getImage(rowIndex, colIndex)" 
+                          :alt="`Image for row ${rowIndex} column ${colIndex}`" 
+                          class="w-full h-full object-cover absolute inset-0" />
+                      <!-- Selection Indicator -->
+                      <div class="absolute inset-0" :class="{ 'ring-2 ring-blue-500 ring-opacity-75': isSelectedCell(rowIndex, colIndex) }"></div>
+                      <!-- Hover Overlay -->
+                      <div class="absolute inset-0 bg-black bg-opacity-0 hover:bg-opacity-25"></div>
                     </div>
                   </template>
                 </div>
