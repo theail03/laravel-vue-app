@@ -84,7 +84,7 @@
                       class="absolute left-0 top-0 w-full h-full opacity-0 cursor-pointer"
                     />
                   </button>
-                  <TButton type="button" color="red">
+                  <TButton type="button" color="red" @click="deleteImage()">
                     <TrashIcon class="w-5 h-5 mr-2" />
                     Delete
                   </TButton>
@@ -279,6 +279,22 @@
       });
     }
   }
+
+  function deleteImage() {
+    if (
+      confirm(
+        `Are you sure you want to delete this image? Operation can't be undone!!`
+      )
+    ) {
+      store.dispatch("deleteImage", { matrixId: route.params.id, ...selectedCell.value }).then(() => {
+        store.commit("notify", {
+          type: "success",
+          message: "The image was successfully deleted",
+        });
+      });
+    }
+  }
+
   </script>
   
   <style></style>

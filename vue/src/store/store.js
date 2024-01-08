@@ -207,17 +207,17 @@ const store = createStore({
         return res;
       });
     },
-    saveImage({ commit, dispatch }, image) {
+    saveImage({ commit, dispatch }, { matrixId, row, column, data }) {
       return axiosClient
-        .put(`/matrix/${image.matrixId}/image/${image.row}/${image.column}`, { data: image.data })
+        .put(`/matrix/${matrixId}/image/${row}/${column}`, { data: data })
         .then((res) => {
-          dispatch('getImages', image.matrixId);
+          dispatch('getImages', matrixId);
           return res;
         });
     },
-    deleteImage({ dispatch }, matrixId, row, column) {
+    deleteImage({ dispatch }, { matrixId, row, column }) {
       return axiosClient.delete(`/matrix/${matrixId}/image/${row}/${column}`).then((res) => {
-        dispatch('getImages', image.matrixId);
+        dispatch('getImages', matrixId);
         return res;
       });
     },
