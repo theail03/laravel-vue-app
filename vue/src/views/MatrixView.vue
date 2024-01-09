@@ -7,8 +7,8 @@
           </h1>
   
           <div class="flex">
-            <TButton v-if="route.params.id" color="red" @click="deleteMatrix()">
-              <TrashIcon class="w-5 h-5 mr-2" />
+            <TButton v-if="editMode" color="red" @click="deleteMatrix()">
+              <TrashIcon class="matrix-view-trash-icon" />
               Delete
             </TButton>
           </div>
@@ -23,7 +23,11 @@
             <!-- Title -->
             <div>
               <label for="title" class="custom-label">Title</label>
-              <input type="text" name="title" id="title" v-model="model.title" autocomplete="matrix_title" class="custom-input"/>
+              <div v-if="!editMode">
+                <!-- Display title as text when not in edit mode -->
+                <span>{{ model.title }}</span>
+              </div>
+              <input v-else type="text" name="title" id="title" v-model="model.title" autocomplete="matrix_title" class="custom-input"/>
             </div>
             <!--/ Title -->
 
@@ -31,11 +35,19 @@
             <div class="matrix-view-form-group grid-cols-2">
               <div> 
                 <label for="rows" class="custom-label">Rows</label>
-                <input type="number" name="rows" id="rows" v-model="model.rows" step="1" min="1" class="custom-input"/>
+                <div v-if="!editMode">
+                  <!-- Display rows as text when not in edit mode -->
+                  <span>{{ model.rows }}</span>
+                </div>
+                <input v-else type="number" name="rows" id="rows" v-model="model.rows" step="1" min="1" class="custom-input"/>
               </div>
               <div> 
                 <label for="columns" class="custom-label">Columns</label>
-                <input type="number" name="columns" id="columns" v-model="model.columns" step="1"  min="1" class="custom-input"/>
+                <div v-if="!editMode">
+                  <!-- Display columns as text when not in edit mode -->
+                  <span>{{ model.columns }}</span>
+                </div>
+                <input v-else type="number" name="columns" id="columns" v-model="model.columns" step="1"  min="1" class="custom-input"/>
               </div>
             </div>
             <!--/ Rows and Columns -->
@@ -73,7 +85,7 @@
                   Image
                 </label>
                 <div class="flex">
-                  <button
+                  <button v-if="editMode"
                     type="button"
                     class="relative overflow-hidden bg-white py-2 px-3 border border-gray-300 rounded-md shadow-sm text-sm leading-4 font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 mr-2"
                   >
@@ -84,8 +96,8 @@
                       class="absolute left-0 top-0 w-full h-full opacity-0 cursor-pointer"
                     />
                   </button>
-                  <TButton type="button" color="red" @click="deleteImage()">
-                    <TrashIcon class="w-5 h-5 mr-2" />
+                  <TButton v-if="editMode" type="button" color="red" @click="deleteImage()">
+                    <TrashIcon class="matrix-view-trash-icon" />
                     Delete
                   </TButton>
                 </div>
@@ -122,7 +134,7 @@
           </div>
           
           <div class="px-4 py-3 bg-gray-50 text-right sm:px-6">
-            <TButton>
+            <TButton v-if="editMode">
               <SaveIcon class="w-5 h-5 mr-2" />
               Save
             </TButton>
@@ -144,6 +156,10 @@
   const router = useRouter();
   
   const route = useRoute();
+
+  const props = defineProps({
+    editMode: Boolean
+  });
   
   // Get matrix loading state, which only changes when we fetch matrix from backend
   const matrixLoading = computed(() => store.state.currentMatrix.loading);

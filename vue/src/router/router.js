@@ -23,7 +23,8 @@ const routes = [
       { path: "/surveys/create", name: "SurveyCreate", component: SurveyView },
       { path: "/surveys/:id", name: "SurveyView", component: SurveyView },
       { path: "/matrices/create", name: "MatricesCreate", component: MatrixView },
-      { path: "/matrices/:id", name: "MatrixView", component: MatrixView },
+      { path: "/matrices/:id", name: "MatrixEdit", component: MatrixView, props: { editMode: true } },
+      { path: "/matrices/:id/view", name: "MatrixView", component: MatrixView, props: { editMode: false } },
     ],
   },
   {

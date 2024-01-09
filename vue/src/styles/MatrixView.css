@@ -1,3 +1,7 @@
 .matrix-view-form-group {
     @apply grid lg:grid-cols-2 gap-4 sm:gap-6;
 }
+
+.matrix-view-trash-icon {
+    @apply w-5 h-5 mr-2;    
+}
