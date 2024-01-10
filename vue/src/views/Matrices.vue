@@ -25,10 +25,12 @@
           >
             <!-- Content for the "info" slot inside ListItem -->
             <template v-slot:info>
-              <div>Rows: {{ matrix.rows }}</div>
-              <div>Columns: {{ matrix.columns }}</div>
-              <div>Create Date: {{ matrix.created_at }}</div>
-              <div>Update Date: {{ matrix.updated_at }}</div>
+              <ul class="list-none space-y-1">
+                <li>Rows: {{ matrix.rows }}</li>
+                <li>Columns: {{ matrix.columns }}</li>
+                <li>Create Date: {{ matrix.created_at }}</li>
+                <li>Update Date: {{ matrix.updated_at }}</li>
+              </ul>
             </template>
           </ListItem>
         </div>
