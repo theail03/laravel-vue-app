@@ -11,7 +11,9 @@
       class="w-full h-48 object-cover"
     />
     <h4 class="mt-4 text-lg font-bold">{{ item.title }}</h4>
-    <div v-html="item.description" class="overflow-hidden flex-1"></div>
+    <div class="overflow-hidden flex-1">
+      <slot name="info"></slot>
+    </div>
 
     <div class="flex justify-between items-center mt-3">
       <TButton :to="itemEdit">
@@ -20,7 +22,7 @@
       </TButton>
       <div class="flex items-center">
         <TButton :to="itemView" circle link>
-          <ExternalLinkIcon class="w-5 h-5" />
+          <EyeIcon class="w-5 h-5" />
         </TButton>
 
         <TButton v-if="item.id" @click="emit('delete', item)" circle link color="red">
@@ -33,7 +35,7 @@
 
 <script setup>
 import TButton from "./core/TButton.vue";
-import { PencilIcon, ExternalLinkIcon, TrashIcon } from '@heroicons/vue/solid'
+import { PencilIcon, EyeIcon, TrashIcon } from '@heroicons/vue/solid'
 
 const { item } = defineProps({
   item: Object,

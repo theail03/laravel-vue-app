@@ -22,7 +22,15 @@
             class="opacity-0 animate-fade-in-down"
             :style="{ animationDelay: `${ind * 0.1}s` }"
             @delete="deleteMatrix(matrix)"
-          />
+          >
+            <!-- Content for the "info" slot inside ListItem -->
+            <template v-slot:info>
+              <div>Rows: {{ matrix.rows }}</div>
+              <div>Columns: {{ matrix.columns }}</div>
+              <div>Create Date: {{ matrix.created_at }}</div>
+              <div>Update Date: {{ matrix.updated_at }}</div>
+            </template>
+          </ListItem>
         </div>
         <div class="flex justify-center mt-5">
           <nav
