@@ -23,6 +23,13 @@
             :style="{ animationDelay: `${ind * 0.1}s` }"
             @delete="deleteMatrix(matrix)"
           >
+            <!-- Content for the "top" slot inside ListItem -->
+            <template v-slot:top>
+              <div class="text-6xl font-bold flex justify-center items-center h-full text-green-600">
+                {{ matrix.rows }} x {{ matrix.columns }}
+              </div>
+            </template>
+
             <!-- Content for the "info" slot inside ListItem -->
             <template v-slot:info>
               <ul class="list-none space-y-1">
