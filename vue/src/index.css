@@ -2,46 +2,52 @@
 @tailwind components;
 @tailwind utilities;
 
-.add-button {
-    @apply flex items-center text-xs rounded-sm text-white bg-gray-600 hover:bg-gray-700;
-}
+@layer components {
+    .add-button {
+        @apply flex items-center text-xs rounded-sm text-white bg-gray-600 hover:bg-gray-700;
+    }
 
-.custom-input {
-    @apply mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md;
-}
+    .custom-input {
+        @apply mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md;
+    }
 
-.custom-label {
-    @apply block text-sm font-medium text-gray-700;
-}
+    .custom-label {
+        @apply block text-sm font-medium text-gray-700;
+    }
 
-.custom-control {
-    @apply focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300;
-}
+    .custom-control {
+        @apply focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300;
+    }
 
-.nav-link-active {
-    @apply bg-gray-900 text-white;
-}
+    .nav-link-active {
+        @apply bg-gray-900 text-white;
+    }
 
-.nav-link-hover {
-    @apply text-gray-300 hover:bg-gray-700 hover:text-white;
-}
+    .nav-link-hover {
+        @apply text-gray-300 hover:bg-gray-700 hover:text-white;
+    }
 
-.user-name {
-    @apply text-base font-medium leading-none text-white;
-}
+    .user-name {
+        @apply text-base font-medium leading-none text-white;
+    }
 
-.user-email {
-    @apply text-sm font-medium leading-none text-gray-400;
-}
+    .user-email {
+        @apply text-sm font-medium leading-none text-gray-400;
+    }
 
-.metric-value {
-    @apply text-8xl pb-4 font-semibold flex-1 flex items-center justify-center;
-}
+    .metric-value {
+        @apply text-8xl pb-4 font-semibold flex-1 flex items-center justify-center;
+    }
 
-.account-action-text {
-    @apply font-medium text-indigo-600 hover:text-indigo-500;
-}
+    .account-action-text {
+        @apply font-medium text-indigo-600 hover:text-indigo-500;
+    }
 
-.submit-button {
-    @apply inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500;
+    .submit-button {
+        @apply inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500;
+    }
+
+    .info-item {
+        @apply flex justify-between text-sm mb-1;
+    }
 }
