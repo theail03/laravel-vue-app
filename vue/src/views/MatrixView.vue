@@ -7,7 +7,7 @@
           </h1>
   
           <div class="flex">
-            <TButton v-if="editMode" color="red" @click="deleteMatrix()">
+            <TButton v-if="editMode && route.params.id" color="red" @click="deleteMatrix()">
               <TrashIcon class="matrix-view-trash-icon" />
               Delete
             </TButton>
@@ -284,7 +284,7 @@
         message: "The matrix was successfully " + action,
       });
       router.push({
-        name: "MatrixView",
+        name: "MatrixEdit",
         params: { id: data.data.id },
       });
     });

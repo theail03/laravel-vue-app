@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from "vue-router";
 import Dashboard from "../views/Dashboard.vue";
 import Surveys from "../views/Surveys.vue";
 import SurveyView from "../views/SurveyView.vue";
+import Matrices from "../views/Matrices.vue";
 import MatrixView from "../views/MatrixView.vue";
 import Login from "../views/Login.vue";
 import Register from "../views/Register.vue";
@@ -22,7 +23,8 @@ const routes = [
       { path: "/surveys", name: "Surveys", component: Surveys },
       { path: "/surveys/create", name: "SurveyCreate", component: SurveyView },
       { path: "/surveys/:id", name: "SurveyView", component: SurveyView },
-      { path: "/matrices/create", name: "MatricesCreate", component: MatrixView },
+      { path: "/matrices", name: "Matrices", component: Matrices },
+      { path: "/matrices/create", name: "MatrixCreate", component: MatrixView, props: { editMode: true } },
       { path: "/matrices/:id", name: "MatrixEdit", component: MatrixView, props: { editMode: true } },
       { path: "/matrices/:id/view", name: "MatrixView", component: MatrixView, props: { editMode: false } },
     ],
