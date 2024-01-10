@@ -12,7 +12,7 @@
       </template>
       <div v-if="matrices.loading" class="flex justify-center">Loading...</div>
       <div v-else-if="matrices.data.length">
-        <div class="grid grid-cols-1 gap-5 sm:grid-cols-2 md:grid-cols-3">
+        <div class="grid grid-cols-1 gap-5 sm:grid-cols-2 md:grid-cols-3 text-gray-700">
           <ListItem
             v-for="(matrix, ind) in matrices.data"
             :key="matrix.id"
@@ -25,19 +25,29 @@
           >
             <!-- Content for the "top" slot inside ListItem -->
             <template v-slot:top>
-              <div class="text-6xl font-bold flex justify-center items-center h-full text-green-600">
+              <div class="metric-value h-full">
                 {{ matrix.rows }} x {{ matrix.columns }}
               </div>
             </template>
 
             <!-- Content for the "info" slot inside ListItem -->
             <template v-slot:info>
-              <ul class="list-none space-y-1">
-                <li>Rows: {{ matrix.rows }}</li>
-                <li>Columns: {{ matrix.columns }}</li>
-                <li>Create Date: {{ matrix.created_at }}</li>
-                <li>Update Date: {{ matrix.updated_at }}</li>
-              </ul>
+              <div class="flex justify-between text-sm mb-1">
+                <div>Rows:</div>
+                <div>{{ matrix.rows }}</div>
+              </div>
+              <div class="flex justify-between text-sm mb-1">
+                <div>Columns:</div>
+                <div>{{ matrix.columns }}</div>
+              </div>
+              <div class="flex justify-between text-sm mb-1">
+                <div>Create Date:</div>
+                <div>{{ matrix.created_at }}</div>
+              </div>
+              <div class="flex justify-between text-sm mb-1">
+                <div>Update Date:</div>
+                <div>{{ matrix.updated_at }}</div>
+              </div>
             </template>
           </ListItem>
         </div>
