@@ -24,9 +24,19 @@ class MatrixController extends Controller
      */
     public function index(Request $request)
     {
-        $user = $request->user();
-
-        return MatrixResource::collection(Matrix::where('user_id', $user->id)->orderBy('created_at', 'DESC')->paginate(10));
+        $query = Matrix::query();
+    
+        // Check if a 'public' query parameter is present in the request
+        if ($request->has('public') && $request->get('public') == 'true') {
+            // Return only public matrices
+            $query->where('is_public', true);
+        } else {
+            // Return matrices belonging to the user
+            $user = $request->user();
+            $query->where('user_id', $user->id);
+        }
+    
+        return MatrixResource::collection($query->orderBy('created_at', 'DESC')->paginate(10));
     }
 
     /**

@@ -137,12 +137,19 @@ const store = createStore({
       return axiosClient.post(`/survey/${surveyId}/answer`, {answers});
     },
     
-    getMatrices({ commit }, {url = null} = {}) {
-      commit('setMatricesLoading', true)
-      url = url || "/matrix";
+    getMatrices({ commit }, options = {}) {
+      commit('setMatricesLoading', true);
+    
+      // Determine the URL based on whether 'public' flag is set in options
+      let url = options.url || "/matrix";
+      if (options.public) {
+        url += '?public=true';
+      }
+    
+      // Proceed with the API call using the constructed URL
       return axiosClient.get(url).then((res) => {
         commit('setMatricesLoading', false);
-        commit("setMatrices", res.data);
+        commit('setMatrices', res.data);
         return res;
       });
     },

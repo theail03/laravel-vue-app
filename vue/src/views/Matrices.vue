@@ -79,22 +79,39 @@
         </div>
       </div>
       <div v-else class="text-gray-600 text-center py-16">
-        Your don't have matrices yet
+        <div v-if="publicMode">
+          There are no public matrices available at the moment.
+        </div>
+        <div v-else>
+          You don't have matrices yet.
+        </div>
       </div>
     </PageComponent>
   </template>
   
   <script setup>
   import store from "../store/store";
-  import { computed } from "vue";
+  import { computed, watchEffect } from "vue";
   import {PlusIcon} from "@heroicons/vue/solid"
   import TButton from '../components/core/TButton.vue'
   import PageComponent from "../components/PageComponent.vue";
   import ListItem from "../components/ListItem.vue";
+
+  const props = defineProps({
+    publicMode: Boolean
+  });
   
   const matrices = computed(() => store.state.matrices);
   
-  store.dispatch("getMatrices");
+  // Function to load matrices based on publicMode
+  function loadMatrices() {
+    store.dispatch("getMatrices", { public: props.publicMode });
+  }
+
+  // Watch for changes to publicMode and fetch matrices accordingly
+  watchEffect(() => {
+    loadMatrices();
+  });
   
   function deleteMatrix(matrix) {
     if (
@@ -110,11 +127,12 @@
   
   function getForPage(ev, link) {
     ev.preventDefault();
-    if (!link.url || link.active) {
-      return;
-    }
-  
-    store.dispatch("getMatrices", { url: link.url });
+    if (!link.url || link.active) return;
+    
+    store.dispatch("getMatrices", {
+      url: link.url,
+      public: props.publicMode
+    });
   }
   </script>
   
