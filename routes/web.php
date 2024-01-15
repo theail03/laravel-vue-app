@@ -40,6 +40,8 @@ Route::middleware('auth')->group(function () {
 
     
     Route::get('/dashboard', [\App\Http\Controllers\DashboardController::class, 'index']);
+
+    Route::get('/matrices/dashboard', [\App\Http\Controllers\DashboardController::class, 'getMatricesDashboard']);
 });
 
 Route::get('/survey-by-slug/{survey:slug}', [\App\Http\Controllers\SurveyController::class, 'showForGuest']);

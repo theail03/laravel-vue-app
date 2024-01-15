@@ -10,6 +10,10 @@ const store = createStore({
       loading: false,
       data: {}
     },
+    matricesDashboard: {
+      loading: false,
+      data: {}
+    },
     surveys: {
       loading: false,
       links: [],
@@ -66,6 +70,20 @@ const store = createStore({
       })
       .catch(error => {
         commit('dashboardLoading', false);
+        return error;
+      })
+
+    },
+    getMatricesDashboardData({commit}) {
+      commit('matricesDashboardLoading', true)
+      return axiosClient.get(`/matrices/dashboard`)
+      .then((res) => {
+        commit('matricesDashboardLoading', false);
+        commit('setMatricesDashboardData', res.data);
+        return res;
+      })
+      .catch(error => {
+        commit('matricesDashboardLoading', false);
         return error;
       })
 
@@ -242,6 +260,12 @@ const store = createStore({
     },
     setDashboardData: (state, data) => {
       state.dashboard.data = data
+    },
+    matricesDashboardLoading: (state, loading) => {
+      state.matricesDashboard.loading = loading;
+    },
+    setMatricesDashboardData: (state, data) => {
+      state.matricesDashboard.data = data
     },
     setSurveysLoading: (state, loading) => {
       state.surveys.loading = loading;

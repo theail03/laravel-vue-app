@@ -194,6 +194,7 @@ import Notification from "./Notification.vue";
 const navigation = [
   { name: "Dashboard", to: { name: "Dashboard" } },
   { name: "surveys", to: { name: "Surveys" } },
+  { name: "Matrices Dashboard", to: { name: "MatricesDashboard" } },
   { name: "My Matrices", to: { name: "Matrices" } },
   { name: "Public Matrices", to: { name: "MatricesPublic" } },
 ];
