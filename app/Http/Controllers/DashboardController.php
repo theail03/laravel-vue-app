@@ -48,11 +48,8 @@ class DashboardController extends Controller
     {
         $user = $request->user();
 
-        // Total Number of Matrices
-        $total = Matrix::query()->where('user_id', $user->id)->count();
-
-        // Latest Matrix
-        $latest = Matrix::query()->where('user_id', $user->id)->latest('created_at')->first();
+        // Total Number of user matrices
+        $totalUserMatrices = Matrix::query()->where('user_id', $user->id)->count();
 
         // Total Number of public matrices
         $totalPublicMatrices = Matrix::query()
@@ -61,17 +58,16 @@ class DashboardController extends Controller
             ->count();
 
         // Latest 5 matrices
-        $latestMatrices = Matrix::query()
+        $latestUserMatrices = Matrix::query()
             ->where('user_id', $user->id)
             ->orderBy('created_at', 'DESC')
             ->limit(5)
             ->get();
 
         return [
-            'totalMatrices' => $total,
-            'latestMatrix' => $latest ? new MatrixResource($latest) : null,
+            'totalUserMatrices' => $totalUserMatrices,
             'totalPublicMatrices' => $totalPublicMatrices,
-            'latestMatrices' => MatrixResource::collection($latestMatrices)
+            'latestUserMatrices' => MatrixResource::collection($latestUserMatrices)
         ];
     }
 }

@@ -6,11 +6,11 @@
       class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 text-gray-700"
     >
       <DashboardCard class="order-1 lg:order-2" style="animation-delay: 0.1s">
-        <template v-slot:title>Total Matrices</template>
+        <template v-slot:title>Total of Your Matrices</template>
         <div
           class="metric-value"
         >
-          {{ data.totalMatrices }}
+          {{ data.totalUserMatrices }}
         </div>
       </DashboardCard>
       <DashboardCard class="order-2 lg:order-4" style="animation-delay: 0.2s">
@@ -26,19 +26,19 @@
         style="animation-delay: 0.2s"
       >
         <template v-slot:title>Your Latest Matrix</template>
-        <div v-if="data.latestMatrix">
+        <div v-if="latestMatrix">
           <div class="metric-value h-48">
-            {{ data.latestMatrix.rows }} x {{ data.latestMatrix.columns }}
+            {{ latestMatrix.rows }} x {{ latestMatrix.columns }}
           </div>
-          <h3 class="font-bold text-xl mb-3">{{ data.latestMatrix.title }}</h3>
-          <MatrixInfo :matrix="data.latestMatrix" />
+          <h3 class="font-bold text-xl mb-3">{{ latestMatrix.title }}</h3>
+          <MatrixInfo :matrix="latestMatrix" />
           <div class="flex justify-between">
-            <TButton :to="{ name: 'MatrixEdit', params: { id: data.latestMatrix.id } }" link>
+            <TButton :to="{ name: 'MatrixEdit', params: { id: latestMatrix.id } }" link>
               <PencilIcon class="w-5 h-5 mr-2" />
               Edit Matrix
             </TButton>
 
-            <TButton :to="{ name: 'MatrixView', params: { id: data.latestMatrix.id } }" link>
+            <TButton :to="{ name: 'MatrixView', params: { id: latestMatrix.id } }" link>
               <EyeIcon class="w-5 h-5 mr-2" />
               View Matrix
             </TButton>
@@ -51,7 +51,7 @@
       <DashboardCard class="order-4 lg:order-3 row-span-2" style="animation-delay: 0.3s">
         <template v-slot:title>
           <div class="flex justify-between items-center mb-3 px-2">
-            <h3 class="text-2xl font-semibold">Latest Matrices</h3>
+            <h3 class="text-2xl font-semibold">Your Latest Matrices</h3>
 
             <a
               href="javascript:void(0)"
@@ -62,10 +62,10 @@
           </div>
         </template>
 
-        <div v-if="data.latestMatrices.length" class="text-left">
+        <div v-if="data.latestUserMatrices.length" class="text-left">
           <a
             href="#"
-            v-for="matrix of data.latestMatrices"
+            v-for="matrix of data.latestUserMatrices"
             :key="matrix.id"
             class="block p-2 hover:bg-gray-100/90"
           >
@@ -97,6 +97,10 @@ const store = useStore();
 
 const loading = computed(() => store.state.matricesDashboard.loading);
 const data = computed(() => store.state.matricesDashboard.data);
+
+const latestMatrix = computed(() => {
+  return data.value.latestUserMatrices?.at(0) ?? null;
+});
 
 store.dispatch("getMatricesDashboardData");
 
