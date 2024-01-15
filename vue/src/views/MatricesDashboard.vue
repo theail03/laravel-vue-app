@@ -53,18 +53,19 @@
           <div class="flex justify-between items-center mb-3 px-2">
             <h3 class="text-2xl font-semibold">Your Latest Matrices</h3>
 
-            <a
-              href="javascript:void(0)"
+            <router-link
+              :to="{ name: 'Matrices' }"
+              link
               class="text-sm text-blue-500 hover:decoration-blue-500"
             >
               View all
-            </a>
+            </router-link>
           </div>
         </template>
 
         <div v-if="data.latestUserMatrices.length" class="text-left">
-          <a
-            href="#"
+          <router-link
+            :to="{ name: 'MatrixView', params: { id: matrix.id } }"
             v-for="matrix of data.latestUserMatrices"
             :key="matrix.id"
             class="block p-2 hover:bg-gray-100/90"
@@ -74,7 +75,7 @@
               Matrix Made at:
               <i class="font-semibold">{{ matrix.created_at }}</i>
             </small>
-          </a>
+          </router-link>
         </div>
         <div v-else class="text-gray-600 text-center py-16">
           Your don't have matrices yet
