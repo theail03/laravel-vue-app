@@ -6,22 +6,9 @@ const store = createStore({
     user: {
       data: {},
     },
-    dashboard: {
-      loading: false,
-      data: {}
-    },
     matricesDashboard: {
       loading: false,
       data: {}
-    },
-    surveys: {
-      loading: false,
-      links: [],
-      data: []
-    },
-    currentSurvey: {
-      data: {},
-      loading: false,
     },
     matrices: {
       loading: false,
@@ -60,101 +47,19 @@ const store = createStore({
         commit('setUser', res.data);
       })
     },
-    getDashboardData({commit}) {
-      commit('dashboardLoading', true)
-      return axiosClient.get(`/dashboard`)
-      .then((res) => {
-        commit('dashboardLoading', false);
-        commit('setDashboardData', res.data);
-        return res;
-      })
-      .catch(error => {
-        commit('dashboardLoading', false);
-        return error;
-      })
-
-    },
     getMatricesDashboardData({commit}) {
-      commit('matricesDashboardLoading', true)
+      commit('setMatricesDashboardLoading', true)
       return axiosClient.get(`/matrices/dashboard`)
       .then((res) => {
-        commit('matricesDashboardLoading', false);
+        commit('setMatricesDashboardLoading', false);
         commit('setMatricesDashboardData', res.data);
         return res;
       })
       .catch(error => {
-        commit('matricesDashboardLoading', false);
+        commit('setMatricesDashboardLoading', false);
         return error;
       })
-
     },
-    getSurveys({ commit }, {url = null} = {}) {
-      commit('setSurveysLoading', true)
-      url = url || "/survey";
-      return axiosClient.get(url).then((res) => {
-        commit('setSurveysLoading', false);
-        commit("setSurveys", res.data);
-        return res;
-      });
-    },
-    getSurvey({ commit }, id) {
-      commit("setCurrentSurveyLoading", true);
-      return axiosClient
-        .get(`/survey/${id}`)
-        .then((res) => {
-          commit("setCurrentSurvey", res.data);
-          commit("setCurrentSurveyLoading", false);
-          return res;
-        })
-        .catch((err) => {
-          commit("setCurrentSurveyLoading", false);
-          throw err;
-        });
-    },
-    getSurveyBySlug({ commit }, slug) {
-      commit("setCurrentSurveyLoading", true);
-      return axiosClient
-        .get(`/survey-by-slug/${slug}`)
-        .then((res) => {
-          commit("setCurrentSurvey", res.data);
-          commit("setCurrentSurveyLoading", false);
-          return res;
-        })
-        .catch((err) => {
-          commit("setCurrentSurveyLoading", false);
-          throw err;
-        });
-    },
-    saveSurvey({ commit, dispatch }, survey) {
-      delete survey.image_url;
-
-      let response;
-      if (survey.id) {
-        response = axiosClient
-          .put(`/survey/${survey.id}`, survey)
-          .then((res) => {
-            commit('setCurrentSurvey', res.data)
-            return res;
-          });
-      } else {
-        response = axiosClient.post("/survey", survey).then((res) => {
-          commit('setCurrentSurvey', res.data);
-          return res;
-        });
-      }
-
-      return response;
-    },
-    deleteSurvey({ dispatch }, id) {
-      return axiosClient.delete(`/survey/${id}`).then((res) => {
-        dispatch('getSurveys');
-        return res;
-      });
-    },
-    saveSurveyAnswer({commit}, {surveyId, answers}) {
-      return axiosClient.post(`/survey/${surveyId}/answer`, {answers});
-    },
-    
     getMatrices({ commit }, options = {}) {
       commit('setMatricesLoading', true);
     
@@ -255,32 +160,12 @@ const store = createStore({
     setUser: (state, user) => {
       state.user.data = user;
     },
-    dashboardLoading: (state, loading) => {
-      state.dashboard.loading = loading;
-    },
-    setDashboardData: (state, data) => {
-      state.dashboard.data = data
-    },
-    matricesDashboardLoading: (state, loading) => {
+    setMatricesDashboardLoading: (state, loading) => {
       state.matricesDashboard.loading = loading;
     },
     setMatricesDashboardData: (state, data) => {
       state.matricesDashboard.data = data
     },
-    setSurveysLoading: (state, loading) => {
-      state.surveys.loading = loading;
-    },
-    setSurveys: (state, surveys) => {
-      state.surveys.links = surveys.meta.links;
-      state.surveys.data = surveys.data;
-    },
-    setCurrentSurveyLoading: (state, loading) => {
-      state.currentSurvey.loading = loading;
-    },
-    setCurrentSurvey: (state, survey) => {
-      state.currentSurvey.data = survey.data;
-    },
-
     setMatricesLoading: (state, loading) => {
       state.matrices.loading = loading;
     },
@@ -294,7 +179,6 @@ const store = createStore({
     setCurrentMatrix: (state, matrix) => {
       state.currentMatrix.data = matrix.data;
     },
-
     setImagesLoading: (state, loading) => {
       state.images.loading = loading;
     },

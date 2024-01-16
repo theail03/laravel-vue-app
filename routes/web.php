@@ -21,7 +21,6 @@ Route::get('/', function () {
 
 Route::middleware('auth')->group(function () {
     Route::post('/logout', [AuthController::class, 'logout']);
-    Route::resource('/survey', \App\Http\Controllers\SurveyController::class);
     Route::resource('/matrix', \App\Http\Controllers\MatrixController::class);
     
     // Image routes
@@ -39,13 +38,8 @@ Route::middleware('auth')->group(function () {
     Route::delete('/matrix/{matrix}/image/{row}/{column}', [ImageController::class, 'deleteImage']);
 
     
-    Route::get('/dashboard', [\App\Http\Controllers\DashboardController::class, 'index']);
-
     Route::get('/matrices/dashboard', [\App\Http\Controllers\DashboardController::class, 'getMatricesDashboard']);
 });
-
-Route::get('/survey-by-slug/{survey:slug}', [\App\Http\Controllers\SurveyController::class, 'showForGuest']);
-Route::post('/survey/{survey}/answer', [\App\Http\Controllers\SurveyController::class, 'storeAnswer']);
 
 Route::get('/user', [AuthController::class, 'getUser']);
 

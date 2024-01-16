@@ -8,11 +8,7 @@ use App\Http\Requests\StoreMatrixRequest;
 use App\Http\Requests\UpdateMatrixRequest;
 use App\Helpers\UserHelper;
 use Illuminate\Http\Request;
-use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\File;
-use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\Str;
-use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\DB;
 
 class MatrixController extends Controller
@@ -57,7 +53,7 @@ class MatrixController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param \App\Models\Matrix $survey
+     * @param \App\Models\Matrix $matrix
      * @return \Illuminate\Http\Response
      */
     public function show(Matrix $matrix, Request $request)

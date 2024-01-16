@@ -1,6 +1,6 @@
-# Survey Full Stack Application
+# Image Matrix Full Stack Application
 
-Built with these technologies for [YouTube Video](https://youtu.be/WLQDpY7lOLg)
+Built with these technologies
 <table>
     <tr>
         <td>
@@ -12,19 +12,12 @@ Built with these technologies for [YouTube Video](https://youtu.be/WLQDpY7lOLg)
         <td>
             <a href="https://tailwindcss.com/"><img src="https://i.imgur.com/wdYXsgR.png" /></a>
         </td>
-        <td>
-            <img src="https://i.imgur.com/Kp5kTUp.png" />
-        </td>
     </tr>
 </table> 
 
 
 ## Requirements
 You need to have PHP version **8.0** or above. Node.js version **12.0** or above.
-
-## Demo
-https://yoursurveys.xyz
-
 
 ## Installation
 

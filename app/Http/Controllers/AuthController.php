@@ -6,8 +6,6 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Testing\Fluent\Concerns\Has;
-use Illuminate\Validation\Rules\Password;
 use Laravel\Socialite\Facades\Socialite;
 
 /**
@@ -36,7 +34,7 @@ class AuthController extends Controller
 
         Auth::login($user);
     
-        return redirect('http://localhost:3000/dashboard');
+        return redirect('http://localhost:3000/matrices/dashboard');
     }
 
     public function logout()
