@@ -1,12 +1,12 @@
 <template>
-  <PageComponent title="Matrices Dashboard">
+  <PageComponent title="Dashboard">
     <div v-if="loading" class="flex justify-center">Loading...</div>
     <div
       v-else
       class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 text-gray-700"
     >
       <DashboardCard class="order-1 lg:order-2" style="animation-delay: 0.1s">
-        <template v-slot:title>Total of Your Matrices</template>
+        <template v-slot:title>Total Matrices From You</template>
         <div
           class="metric-value"
         >

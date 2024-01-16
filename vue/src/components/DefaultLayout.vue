@@ -192,9 +192,9 @@ import { useRouter } from "vue-router";
 import Notification from "./Notification.vue";
 
 const navigation = [
-  { name: "Matrices Dashboard", to: { name: "MatricesDashboard" } },
-  { name: "My Matrices", to: { name: "Matrices" } },
+  { name: "Dashboard", to: { name: "MatricesDashboard" } },
   { name: "Public Matrices", to: { name: "MatricesPublic" } },
+  { name: "My Matrices", to: { name: "Matrices" } },
 ];
 
 export default {
