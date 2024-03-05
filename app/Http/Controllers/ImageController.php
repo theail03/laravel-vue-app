@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 use App\Http\Resources\ImageResource;
 use App\Http\Requests\SaveImageRequest;
+use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
 
 class ImageController extends Controller
 {
@@ -64,16 +65,18 @@ class ImageController extends Controller
             throw new \Exception('did not match data URI with image data');
         }
 
-        $dir = 'images/';
-        $file = Str::random() . '.' . $type;
-        $absolutePath = public_path($dir);
-        $relativePath = $dir . $file;
-        if (!File::exists($absolutePath)) {
-            File::makeDirectory($absolutePath, 0755, true);
-        }
-        file_put_contents($relativePath, $image);
+        // Upload the image to Cloudinary
+        $cloudinaryResponse = Cloudinary::upload($image, [
+            'folder' => 'matrix_images',
+            'public_id' => Str::random(10),
+            'resource_type' => 'image',
+            'format' => $type
+        ]);
 
-        // Now, create or update the Image model
+        // Get the secure URL from the Cloudinary response
+        $secureUrl = $cloudinaryResponse->getSecurePath();
+
+        // Now, create or update the Image model with the secure URL
         $imageModel = Image::updateOrCreate(
             [
                 'matrix_id' => $matrix->id,
@@ -82,7 +85,7 @@ class ImageController extends Controller
             ],
             [
                 'user_id' => Auth::id(),
-                'path' => $relativePath // This is the path where the image is saved
+                'path' => $secureUrl // Store the secure URL from Cloudinary
             ]
         );
 
