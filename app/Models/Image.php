@@ -14,6 +14,7 @@ class Image extends Model
         'row',
         'column',
         'path',
+        'public_id',
     ];
 
     public function matrix()

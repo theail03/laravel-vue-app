@@ -22,6 +22,7 @@ class ImageResource extends JsonResource
             'row' => $this->row,
             'column' => $this->column,
             'path' => URL::to($this->path),
+            'public_id' => $this->public_id,
         ];
     }
 }

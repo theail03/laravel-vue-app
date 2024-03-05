@@ -8,9 +8,9 @@ use App\Helpers\UserHelper;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\File;
 use App\Http\Resources\ImageResource;
 use App\Http\Requests\SaveImageRequest;
+use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
 
 class ImageController extends Controller
 {
@@ -36,44 +36,36 @@ class ImageController extends Controller
         return new ImageResource($image);
     }
 
-    // Save (create or update) a specific image
     public function saveImage(Matrix $matrix, SaveImageRequest $request, $row, $column)
     {
         UserHelper::authorizeUser($matrix->user_id);
 
-        $image = $request->input('data'); // This is the base64-encoded image data.
+        $imageData = $request->input('data'); // This is the base64-encoded image data.
 
-        // Check if image is valid base64 string
-        if (preg_match('/^data:image\/(\w+);base64,/', $image, $type)) {
-            // Take out the base64 encoded text without mime type
-            $image = substr($image, strpos($image, ',') + 1);
-            // Get file extension
-            $type = strtolower($type[1]); // jpg, png, gif
-
-            // Check if file is an image
-            if (!in_array($type, ['jpg', 'jpeg', 'gif', 'png'])) {
-                throw new \Exception('invalid image type');
-            }
-            $image = str_replace(' ', '+', $image);
-            $image = base64_decode($image);
-
-            if ($image === false) {
-                throw new \Exception('base64_decode failed');
-            }
-        } else {
-            throw new \Exception('did not match data URI with image data');
+        // Check if imageData is a valid base64 image string
+        if (!preg_match('/^data:image\/(\w+);base64,/', $imageData, $typeMatch)) {
+            throw new \Exception('Invalid image data');
         }
 
-        $dir = 'images/';
-        $file = Str::random() . '.' . $type;
-        $absolutePath = public_path($dir);
-        $relativePath = $dir . $file;
-        if (!File::exists($absolutePath)) {
-            File::makeDirectory($absolutePath, 0755, true);
+        $type = strtolower($typeMatch[1]);
+        if (!in_array($type, ['jpg', 'jpeg', 'gif', 'png'])) {
+            throw new \Exception('Invalid image type');
         }
-        file_put_contents($relativePath, $image);
 
-        // Now, create or update the Image model
+        // Upload the image to Cloudinary
+        $cloudinaryResponse = Cloudinary::upload($imageData, [
+            'folder' => 'matrix_images',
+            'public_id' => Str::random(10),
+            'resource_type' => 'image'
+        ]);
+
+        // Get the public ID from the Cloudinary response
+        $publicId = $cloudinaryResponse->getPublicId();
+
+        // Get the secure URL from the Cloudinary response
+        $secureUrl = $cloudinaryResponse->getSecurePath();
+
+        // Now, create or update the Image model with the secure URL
         $imageModel = Image::updateOrCreate(
             [
                 'matrix_id' => $matrix->id,
@@ -82,7 +74,8 @@ class ImageController extends Controller
             ],
             [
                 'user_id' => Auth::id(),
-                'path' => $relativePath // This is the path where the image is saved
+                'path' => $secureUrl, // Store the secure URL from Cloudinary
+                'public_id' => $publicId // Also store the public ID
             ]
         );
 
@@ -101,8 +94,10 @@ class ImageController extends Controller
                         ->where('column', $column)
                         ->firstOrFail();
 
-        $absolutePath = public_path($image->path);
-        File::delete($absolutePath);
+        if ($image->public_id) {
+            // Delete the image from Cloudinary
+            Cloudinary::destroy($image->public_id);
+        }
 
         $image->delete();
 
