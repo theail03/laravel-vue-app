@@ -8,7 +8,6 @@ use App\Helpers\UserHelper;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\File;
 use App\Http\Resources\ImageResource;
 use App\Http\Requests\SaveImageRequest;
 use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
@@ -56,7 +55,7 @@ class ImageController extends Controller
         // Upload the image to Cloudinary
         $cloudinaryResponse = Cloudinary::upload($imageData, [
             'folder' => 'matrix_images',
-            'public_id' => Str::random(10),
+            'public_id' => $publicId = Str::random(10),
             'resource_type' => 'image'
         ]);
 
@@ -72,7 +71,8 @@ class ImageController extends Controller
             ],
             [
                 'user_id' => Auth::id(),
-                'path' => $secureUrl // Store the secure URL from Cloudinary
+                'path' => $secureUrl, // Store the secure URL from Cloudinary
+                'public_id' => $publicId // Also store the public ID
             ]
         );
 
@@ -91,8 +91,12 @@ class ImageController extends Controller
                         ->where('column', $column)
                         ->firstOrFail();
 
-        $absolutePath = public_path($image->path);
-        File::delete($absolutePath);
+        $publicId = $image->public_id;
+
+        if ($publicId) {
+            // Delete the image from Cloudinary
+            Cloudinary::destroy($publicId);
+        }
 
         $image->delete();
 
