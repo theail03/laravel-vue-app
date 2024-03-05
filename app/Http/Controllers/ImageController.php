@@ -55,9 +55,12 @@ class ImageController extends Controller
         // Upload the image to Cloudinary
         $cloudinaryResponse = Cloudinary::upload($imageData, [
             'folder' => 'matrix_images',
-            'public_id' => $publicId = Str::random(10),
+            'public_id' => Str::random(10),
             'resource_type' => 'image'
         ]);
+
+        // Get the public ID from the Cloudinary response
+        $publicId = $cloudinaryResponse->getPublicId();
 
         // Get the secure URL from the Cloudinary response
         $secureUrl = $cloudinaryResponse->getSecurePath();
@@ -91,11 +94,9 @@ class ImageController extends Controller
                         ->where('column', $column)
                         ->firstOrFail();
 
-        $publicId = $image->public_id;
-
-        if ($publicId) {
+        if ($image->public_id) {
             // Delete the image from Cloudinary
-            Cloudinary::destroy($publicId);
+            Cloudinary::destroy($image->public_id);
         }
 
         $image->delete();
