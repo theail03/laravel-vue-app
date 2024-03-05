@@ -41,6 +41,10 @@ You need to have PHP version **8.0** or above. Node.js version **12.0** or above
 
 The project is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
 
+## Notes
+
+To integrate Cloudinary's services for image management, go to the Cloudinary Console, navigate to the Dashboard and locate the `API environment variable` which is a ready-to-use string with all your credentials.
+
 ## Links
 
 I Built Full Stack Application with Laravel, Vue 3 and Tailwindcss
@@ -50,3 +54,11 @@ https://www.youtube.com/watch?v=WLQDpY7lOLg
 Login con Laravel 10 y Google | SSO Fácil con Laravel Socialite
 <br>
 https://www.youtube.com/watch?v=C98LvIbPSf0
+
+Upload image with laravel and cloudinary - 1
+<br>
+https://www.youtube.com/watch?v=ekJ3LZs2yu8
+
+Upload image with laravel and cloudinary - 2
+<br>
+https://www.youtube.com/watch?v=LaSLfXoLYYA&t=438s
