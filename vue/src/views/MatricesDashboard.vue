@@ -63,7 +63,7 @@
           </div>
         </template>
 
-        <div v-if="data.latestUserMatrices.length" class="text-left">
+        <div v-if="data.latestUserMatrices?.length" class="text-left">
           <router-link
             :to="{ name: 'MatrixView', params: { id: matrix.id } }"
             v-for="matrix of data.latestUserMatrices"
@@ -96,6 +96,7 @@ import MatrixInfo from "../components/MatrixInfo.vue";
 
 const store = useStore();
 
+const user = computed(() => store.state.user.data);
 const loading = computed(() => store.state.matricesDashboard.loading);
 const data = computed(() => store.state.matricesDashboard.data);
 
@@ -103,7 +104,9 @@ const latestMatrix = computed(() => {
   return data.value.latestUserMatrices?.at(0) ?? null;
 });
 
-store.dispatch("getMatricesDashboardData");
+if (user.value && Object.keys(user.value).length > 0) {
+  store.dispatch("getMatricesDashboardData");
+}
 
 </script>
 
