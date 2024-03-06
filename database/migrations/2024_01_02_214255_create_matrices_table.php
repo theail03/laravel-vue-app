@@ -15,7 +15,7 @@ class CreateMatricesTable extends Migration
     {
         Schema::create('matrices', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(\App\Models\User::class, 'user_id');
+            $table->foreignId('user_id')->nullable()->constrained();
             $table->string('title');
             $table->string('slug')->unique();
             $table->integer('rows');
