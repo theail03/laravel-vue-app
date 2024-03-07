@@ -103,7 +103,7 @@
               </Menu>
 
               <!-- "Sign in with Google" button, shown if not authenticated -->
-                <GoogleSignInButton v-else />
+              <GoogleSignInButton v-else />
             </div>
           </div>
 
@@ -136,42 +136,49 @@
             >{{ item.name }}
           </router-link>
         </div>
+
         <div class="pt-4 pb-3 border-t border-gray-700">
-          <div class="flex items-center px-5">
-            <div class="flex-shrink-0">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                class="h-8 w-8"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="white"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M5.121 17.804A13.937 13.937 0 0112 16c2.5 0 4.847.655 6.879 1.804M15 10a3 3 0 11-6 0 3 3 0 016 0zm6 2a9 9 0 11-18 0 9 9 0 0118 0z"
-                />
-              </svg>
-            </div>
-            <div class="ml-3">
-              <div class="user-name">
-                {{ user.name }}
+          <template v-if="isAuthenticated">
+            <div class="flex items-center px-5">
+              <div class="flex-shrink-0">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="h-8 w-8"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="white"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M5.121 17.804A13.937 13.937 0 0112 16c2.5 0 4.847.655 6.879 1.804M15 10a3 3 0 11-6 0 3 3 0 016 0zm6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+                  />
+                </svg>
               </div>
-              <div class="user-email">
-                {{ user.email }}
+              <div class="ml-3">
+                <div class="user-name">
+                  {{ user.name }}
+                </div>
+                <div class="user-email">
+                  {{ user.email }}
+                </div>
               </div>
             </div>
-          </div>
-          <div class="mt-3 px-2 space-y-1">
-            <DisclosureButton
-              as="a"
-              @click="logout"
-              class="block px-3 py-2 rounded-md text-base font-medium text-gray-400 hover:text-white hover:bg-gray-700 cursor-pointer"
-              >Sign out
-            </DisclosureButton>
+            <div class="mt-3 px-2 space-y-1">
+              <DisclosureButton
+                as="a"
+                @click="logout"
+                class="block px-3 py-2 rounded-md text-base font-medium text-gray-400 hover:text-white hover:bg-gray-700 cursor-pointer"
+                >Sign out
+              </DisclosureButton>
+            </div>
+          </template>
+          <div v-else class="flex items-center px-5">
+            <GoogleSignInButton />
           </div>
         </div>
+        
       </DisclosurePanel>
     </Disclosure>
 
