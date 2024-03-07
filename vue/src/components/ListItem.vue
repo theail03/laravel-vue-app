@@ -11,20 +11,28 @@
     </div>
 
     <div class="flex justify-between items-center mt-3">
-      <TButton :to="itemEdit" v-if="!publicMode">
-        <PencilIcon class="wo-5 h-5 mr-2 " />
-        Edit
-      </TButton>
-      <div class="flex items-center">
-        <TButton :to="itemView" circle link>
-          <EyeIcon class="w-5 h-5" />
+      <template v-if="!publicMode">
+        <TButton :to="itemEdit">
+          <PencilIcon class="wo-5 h-5 mr-2 " />
+          Edit
         </TButton>
-
-        <TButton v-if="item.id && !publicMode" @click="emit('delete', item)" circle link color="red">
-          <TrashIcon class="w-5 h-5" />
+        <div class="flex items-center">
+          <TButton :to="itemView" circle link>
+            <EyeIcon class="w-5 h-5" />
+          </TButton>
+          <TButton v-if="item.id" @click="emit('delete', item)" circle link color="red">
+            <TrashIcon class="w-5 h-5" />
+          </TButton>
+        </div>
+      </template>
+      <template v-else>
+        <TButton :to="itemView">
+          <EyeIcon class="w-5 h-5 mr-2 " />
+          View
         </TButton>
-      </div>
+      </template>
     </div>
+
   </div>
 </template>
 
