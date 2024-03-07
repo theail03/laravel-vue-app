@@ -4,7 +4,7 @@
     <template v-slot:header>
       <div class="flex justify-between items-center">
         <h1 class="text-3xl font-bold text-gray-900">Matrices</h1>
-        <TButton color="green" :to="{ name: 'MatrixCreate' }">
+        <TButton v-if="!publicMode" color="green" :to="{ name: 'MatrixCreate' }">
           <PlusIcon class="w-5 h-5" />
           Add new Matrix
         </TButton>
@@ -13,7 +13,7 @@
     <div v-if="matrices.loading" class="flex justify-center">Loading...</div>
     <div v-else-if="matrices.data.length">
       <div class="grid grid-cols-1 gap-5 sm:grid-cols-2 md:grid-cols-3 text-gray-700">
-        <ListItem
+        <ListItem :publicMode="publicMode"
           v-for="(matrix, ind) in matrices.data"
           :key="matrix.id"
           :item="matrix"

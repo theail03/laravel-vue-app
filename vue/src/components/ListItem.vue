@@ -11,7 +11,7 @@
     </div>
 
     <div class="flex justify-between items-center mt-3">
-      <TButton :to="itemEdit">
+      <TButton :to="itemEdit" v-if="!publicMode">
         <PencilIcon class="wo-5 h-5 mr-2 " />
         Edit
       </TButton>
@@ -20,7 +20,7 @@
           <EyeIcon class="w-5 h-5" />
         </TButton>
 
-        <TButton v-if="item.id" @click="emit('delete', item)" circle link color="red">
+        <TButton v-if="item.id && !publicMode" @click="emit('delete', item)" circle link color="red">
           <TrashIcon class="w-5 h-5" />
         </TButton>
       </div>
@@ -36,6 +36,7 @@ const { item } = defineProps({
   item: Object,
   itemEdit: String,
   itemView: String,
+  publicMode: Boolean,
 });
 const emit = defineEmits(["delete", "edit"]);
 </script>
