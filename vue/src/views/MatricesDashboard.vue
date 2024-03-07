@@ -98,12 +98,13 @@ const store = useStore();
 
 const loading = computed(() => store.state.matricesDashboard.loading);
 const data = computed(() => store.state.matricesDashboard.data);
+const isAuthenticated = computed(() => store.getters.isAuthenticated);
 
 const latestMatrix = computed(() => {
   return data.value.latestUserMatrices?.at(0) ?? null;
 });
 
-if (store.getters.isAuthenticated) {
+if (isAuthenticated) {
   store.dispatch("getMatricesDashboardData");
 }
 
