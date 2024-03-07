@@ -103,9 +103,7 @@
               </Menu>
 
               <!-- "Sign in with Google" button, shown if not authenticated -->
-              <button v-else>
-                <img src="../assets/btn_google_signin_dark_normal_web.png" alt="Sign in with Google" />
-              </button>
+                <GoogleSignInButton v-else />
             </div>
           </div>
 
@@ -198,6 +196,7 @@ import { useStore } from "vuex";
 import { computed } from "vue";
 import { useRouter } from "vue-router";
 import Notification from "./Notification.vue";
+import GoogleSignInButton from "./core/GoogleSignInButton.vue";
 
 export default {
   components: {
@@ -212,6 +211,7 @@ export default {
     MenuIcon,
     XIcon,
     Notification,
+    GoogleSignInButton,
   },
   setup() {
     const store = useStore();
