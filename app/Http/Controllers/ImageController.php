@@ -17,7 +17,9 @@ class ImageController extends Controller
     // Retrieve all images for a specific matrix
     public function getImages(Matrix $matrix, Request $request)
     {
-        UserHelper::authorizeUser($matrix->user_id);
+        if (!$matrix->is_public) {
+            UserHelper::authorizeUser($matrix->user_id);
+        }
 
         $images = $matrix->images;
         return ImageResource::collection($images);
@@ -26,7 +28,9 @@ class ImageController extends Controller
     // Retrieve a specific image
     public function getImage(Matrix $matrix, Request $request, $row, $column)
     {
-        UserHelper::authorizeUser($matrix->user_id);
+        if (!$matrix->is_public) {
+            UserHelper::authorizeUser($matrix->user_id);
+        }
 
         // Use the relationship to find the specific image
         $image = $matrix->images()

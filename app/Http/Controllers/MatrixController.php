@@ -58,7 +58,9 @@ class MatrixController extends Controller
      */
     public function show(Matrix $matrix, Request $request)
     {
-        UserHelper::authorizeUser($matrix->user_id);
+        if (!$matrix->is_public) {
+            UserHelper::authorizeUser($matrix->user_id);
+        }
 
         return new MatrixResource($matrix);
     }
