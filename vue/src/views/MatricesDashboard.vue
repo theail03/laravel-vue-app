@@ -90,7 +90,7 @@ import {EyeIcon, PencilIcon} from "@heroicons/vue/solid"
 import DashboardCard from "../components/core/DashboardCard.vue";
 import TButton from "../components/core/TButton.vue";
 import PageComponent from "../components/PageComponent.vue";
-import { computed } from "vue";
+import { watch, computed } from "vue";
 import { useStore } from "vuex";
 import MatrixInfo from "../components/MatrixInfo.vue";
 
@@ -104,7 +104,10 @@ const latestMatrix = computed(() => {
   return data.value.latestMatrices?.at(0) ?? null;
 });
 
-store.dispatch("getMatricesDashboardData");
+// Dispatch action both on setup and whenever isAuthenticated changes
+watch(isAuthenticated, () => {
+  store.dispatch("getMatricesDashboardData");
+}, { immediate: true });
 
 </script>
 
