@@ -31,7 +31,11 @@ const store = createStore({
       message: ''
     }
   },
-  getters: {},
+  getters: {
+    isAuthenticated(state) {
+      return Object.keys(state.user.data).length > 0;
+    },
+  },
   actions: {
 
     logout({commit}) {

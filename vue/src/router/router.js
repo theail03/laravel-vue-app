@@ -56,7 +56,7 @@ const router = createRouter({
 
 router.beforeEach(async (to, from, next) => {
   await store.dispatch("getUser");
-  const isUserDataSet = Object.keys(store.state.user.data).length > 0;
+  const isUserDataSet = store.getters.isAuthenticated;
 
   if (to.meta.requiresAuth && !isUserDataSet) {
     next({ name: "MatricesDashboard" });

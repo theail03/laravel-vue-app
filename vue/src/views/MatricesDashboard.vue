@@ -96,7 +96,6 @@ import MatrixInfo from "../components/MatrixInfo.vue";
 
 const store = useStore();
 
-const user = computed(() => store.state.user.data);
 const loading = computed(() => store.state.matricesDashboard.loading);
 const data = computed(() => store.state.matricesDashboard.data);
 
@@ -104,7 +103,7 @@ const latestMatrix = computed(() => {
   return data.value.latestUserMatrices?.at(0) ?? null;
 });
 
-if (user.value && Object.keys(user.value).length > 0) {
+if (store.getters.isAuthenticated) {
   store.dispatch("getMatricesDashboardData");
 }
 
