@@ -63,10 +63,10 @@
           </div>
         </template>
 
-        <div v-if="data.latestUserMatrices?.length" class="text-left">
+        <div v-if="data.latestMatrices?.length" class="text-left">
           <router-link
             :to="{ name: 'MatrixView', params: { id: matrix.id } }"
-            v-for="matrix of data.latestUserMatrices"
+            v-for="matrix of data.latestMatrices"
             :key="matrix.id"
             class="block p-2 hover:bg-gray-100/90"
           >
@@ -101,12 +101,10 @@ const data = computed(() => store.state.matricesDashboard.data);
 const isAuthenticated = computed(() => store.getters.isAuthenticated);
 
 const latestMatrix = computed(() => {
-  return data.value.latestUserMatrices?.at(0) ?? null;
+  return data.value.latestMatrices?.at(0) ?? null;
 });
 
-if (isAuthenticated) {
-  store.dispatch("getMatricesDashboardData");
-}
+store.dispatch("getMatricesDashboardData");
 
 </script>
 

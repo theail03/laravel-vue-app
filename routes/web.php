@@ -34,12 +34,10 @@ Route::middleware('auth')->group(function () {
     Route::put('/matrix/{matrix}/image/{row}/{column}', [ImageController::class, 'saveImage']);
 
     // Route to delete a specific image
-    Route::delete('/matrix/{matrix}/image/{row}/{column}', [ImageController::class, 'deleteImage']);
-
-    
-    Route::get('/matrices/dashboard', [\App\Http\Controllers\DashboardController::class, 'getMatricesDashboard']);
+    Route::delete('/matrix/{matrix}/image/{row}/{column}', [ImageController::class, 'deleteImage']);    
 });
 
 Route::get('/user', [AuthController::class, 'getUser']);
 Route::get('/google-auth/redirect', [AuthController::class, 'googleAuthRedirect']);
 Route::get('/google-auth/callback', [AuthController::class, 'googleAuthCallback']);
+Route::get('/matrices/dashboard', [\App\Http\Controllers\DashboardController::class, 'getMatricesDashboard']);
