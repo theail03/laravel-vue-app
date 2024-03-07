@@ -191,12 +191,6 @@ import { computed } from "vue";
 import { useRouter } from "vue-router";
 import Notification from "./Notification.vue";
 
-const navigation = [
-  { name: "Dashboard", to: { name: "MatricesDashboard" } },
-  { name: "Public Matrices", to: { name: "MatricesPublic" } },
-  { name: "My Matrices", to: { name: "Matrices" } },
-];
-
 export default {
   components: {
     Disclosure,
@@ -214,7 +208,20 @@ export default {
   setup() {
     const store = useStore();
     const router = useRouter();
+    const isAuthenticated = computed(() => store.getters.isAuthenticated);
+    const navigation = computed(() => {
+      const baseNavigation = [
+        { name: "Dashboard", to: { name: "MatricesDashboard" } },
+        { name: "Public Matrices", to: { name: "MatricesPublic" } },
+      ];
 
+      if (isAuthenticated.value) {
+        baseNavigation.push({ name: "My Matrices", to: { name: "Matrices" } });
+      }
+
+      return baseNavigation;
+    });
+        
     function logout() {
       store.dispatch("logout").then(() => {
         router.push({
