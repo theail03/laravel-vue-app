@@ -87,7 +87,7 @@
 <script setup>
 import DashboardCard from "../components/core/DashboardCard.vue";
 import PageComponent from "../components/PageComponent.vue";
-import { watch, computed } from "vue";
+import { computed } from "vue";
 import { useStore } from "vuex";
 import MatrixInfo from "../components/MatrixInfo.vue";
 
@@ -99,16 +99,12 @@ const store = useStore();
 
 const loading = computed(() => store.state.matricesDashboard.loading);
 const data = computed(() => store.state.matricesDashboard.data);
-const isAuthenticated = computed(() => store.getters.isAuthenticated);
 
 const latestMatrix = computed(() => {
   return data.value.latestMatrices?.at(0) ?? null;
 });
 
-// Dispatch action both on setup and whenever isAuthenticated changes
-watch(isAuthenticated, () => {
-  store.dispatch("getMatricesDashboardData");
-}, { immediate: true });
+store.dispatch("getMatricesDashboardData");
 
 </script>
 

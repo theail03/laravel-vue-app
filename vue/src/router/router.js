@@ -1,6 +1,4 @@
 import { createRouter, createWebHistory } from "vue-router";
-import AuthenticatedDashboard from '../views/AuthenticatedDashboard.vue';
-import GuestDashboard from '../views/GuestDashboard.vue';
 import Matrices from "../views/Matrices.vue";
 import MatrixView from "../views/MatrixView.vue";
 import Login from "../views/Login.vue";
@@ -9,6 +7,7 @@ import ErrorPage from "../views/ErrorPage.vue";
 import DefaultLayout from "../components/DefaultLayout.vue";
 import AuthLayout from "../components/AuthLayout.vue";
 import store from "../store/store";
+import DashboardWrapper from "../views/DashboardWrapper.vue";
 
 const routes = [
   {
@@ -16,14 +15,7 @@ const routes = [
     redirect: "/matrices/dashboard",
     component: DefaultLayout,
     children: [
-      { path: "/matrices/dashboard", name: "MatricesDashboard", component: GuestDashboard, beforeEnter: (to, from, next) => {
-          if (userIsAuthenticated()) {
-            next({ component: AuthenticatedDashboard });
-          } else {
-            next(); // Continue with the GuestDashboard
-          }
-        },
-      },
+      { path: "/matrices/dashboard", name: "MatricesDashboard", component: DashboardWrapper },
       { path: "/matrices", name: "Matrices", component: Matrices, props: { publicMode: false }, meta: { requiresAuth: true } },
       { path: "/matrices/public", name: "MatricesPublic", component: Matrices, props: { publicMode: true } },
       { path: "/matrices/create", name: "MatrixCreate", component: MatrixView, props: { editMode: true }, meta: { requiresAuth: true } },
@@ -56,10 +48,6 @@ const routes = [
     props: true, 
   }
 ];
-
-function userIsAuthenticated() {
-  return store.getters.isAuthenticated;
-}
 
 const router = createRouter({
   history: createWebHistory(),
