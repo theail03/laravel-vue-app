@@ -24,24 +24,6 @@ const routes = [
     ],
   },
   {
-    path: "/auth",
-    redirect: "/login",
-    name: "Auth",
-    component: AuthLayout,
-    children: [
-      {
-        path: "/login",
-        name: "Login",
-        component: Login,
-      },
-      {
-        path: "/register",
-        name: "Register",
-        component: Register,
-      },
-    ],
-  },
-  {
     path: '/:error', 
     name: 'Error',
     component: ErrorPage,
