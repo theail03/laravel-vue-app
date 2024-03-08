@@ -9,10 +9,12 @@
             Latest Public Matrix
         </template>
         <template v-slot:left-buttons="slotProps">
-            <TButton :to="{ name: 'MatrixView', params: { id: slotProps.latestMatrixId } }" link>
-                <EyeIcon class="w-5 h-5 mr-2" />
-                View Matrix
-            </TButton>
+            <div class="flex justify-center mt-3">
+                <TButton :to="{ name: 'MatrixView', params: { id: slotProps.latestMatrixId } }" link>
+                    <EyeIcon class="w-5 h-5 mr-2" />
+                    View Matrix
+                </TButton>
+            </div>
         </template>
         <template v-slot:left-no-content>
             There are no public matrices available at the moment

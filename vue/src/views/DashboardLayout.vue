@@ -33,10 +33,8 @@
           </div>
           <h3 class="font-bold text-xl mb-3">{{ latestMatrix.title }}</h3>
           <MatrixInfo :matrix="latestMatrix" />
-          <div class="flex justify-between mt-3">
-            <slot name="left-buttons" :latestMatrixId="latestMatrix.id">
-            </slot>
-          </div>
+          <slot name="left-buttons" :latestMatrixId="latestMatrix.id">
+          </slot>
         </div>
         <div v-else class="text-gray-600 text-center py-16">
           <slot name="left-no-content">
