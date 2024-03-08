@@ -1,7 +1,9 @@
 <template>
     <DashboardLayout viewAllLink="MatricesPublic">
         <template v-slot:top-center-content="slotProps">
-            Sign up to create your own matrices
+            <div class="text-sm pb-4 flex-1 flex items-center justify-center">
+                Sign in to start creating your own matrices!
+            </div>
         </template>
         <template v-slot:left-title>
             Latest Public Matrix
