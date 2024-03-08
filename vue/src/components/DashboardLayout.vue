@@ -1,4 +1,8 @@
-<!-- This file was previously named MatricesDashboard.vue -->
+<!-- Previous file paths for this file:
+- ./vue/src/views/MatricesDashboard.vue (initial location)
+- ./vue/src/views/DashboardLayout.vue 
+- ./vue/src/components/DashboardLayout.vue (current location) 
+-->
 <template>
   <PageComponent title="Dashboard">
     <div v-if="loading" class="flex justify-center">Loading...</div>
@@ -83,11 +87,11 @@
 </template>
 
 <script setup>
-import DashboardCard from "../components/core/DashboardCard.vue";
-import PageComponent from "../components/PageComponent.vue";
+import DashboardCard from "./core/DashboardCard.vue";
+import PageComponent from "./PageComponent.vue";
 import { computed } from "vue";
 import { useStore } from "vuex";
-import MatrixInfo from "../components/MatrixInfo.vue";
+import MatrixInfo from "./MatrixInfo.vue";
 
 const props = defineProps({
   viewAllLink: String

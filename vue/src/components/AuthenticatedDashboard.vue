@@ -1,3 +1,7 @@
+<!-- Previous file paths for this file:
+- ./vue/src/views/AuthenticatedDashboard.vue (initial location)
+- ./vue/src/components/AuthenticatedDashboard.vue (current location) 
+-->
 <template>
     <DashboardLayout viewAllLink="Matrices">
         <template v-slot:top-center-content="slotProps">
@@ -36,5 +40,5 @@
 <script setup>
 import DashboardLayout from "./DashboardLayout.vue";
 import { EyeIcon, PencilIcon } from "@heroicons/vue/solid"
-import TButton from "../components/core/TButton.vue";
+import TButton from "./core/TButton.vue";
 </script>

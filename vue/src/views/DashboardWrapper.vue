@@ -3,8 +3,8 @@
 </template>
 
 <script>
-import GuestDashboard from './GuestDashboard.vue';
-import AuthenticatedDashboard from './AuthenticatedDashboard.vue';
+import GuestDashboard from '../components/GuestDashboard.vue';
+import AuthenticatedDashboard from '../components/AuthenticatedDashboard.vue';
 import { computed } from 'vue';
 import store from '../store/store';
 
