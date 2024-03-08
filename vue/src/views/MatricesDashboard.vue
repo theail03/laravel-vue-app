@@ -7,11 +7,8 @@
     >
       <DashboardCard class="order-1 lg:order-2" style="animation-delay: 0.1s">
         <template v-slot:title>Total Matrices From You</template>
-        <div
-          class="metric-value"
-        >
-          {{ data.totalUserMatrices }}
-        </div>
+        <slot name="top-center-content" :totalUserMatrices="data.totalUserMatrices">
+        </slot>
       </DashboardCard>
       <DashboardCard class="order-2 lg:order-4" style="animation-delay: 0.2s">
         <template v-slot:title>Total Public Matrices</template>
@@ -25,7 +22,10 @@
         class="order-3 lg:order-1 row-span-2"
         style="animation-delay: 0.2s"
       >
-        <template v-slot:title>Your Latest Matrix</template>
+        <template v-slot:title>
+          <slot name="left-title">
+          </slot>
+        </template>
         <div v-if="latestMatrix">
           <div class="metric-value h-48">
             {{ latestMatrix.rows }} x {{ latestMatrix.columns }}
@@ -33,28 +33,25 @@
           <h3 class="font-bold text-xl mb-3">{{ latestMatrix.title }}</h3>
           <MatrixInfo :matrix="latestMatrix" />
           <div class="flex justify-between mt-3">
-            <TButton :to="{ name: 'MatrixEdit', params: { id: latestMatrix.id } }" link>
-              <PencilIcon class="w-5 h-5 mr-2" />
-              Edit Matrix
-            </TButton>
-
-            <TButton :to="{ name: 'MatrixView', params: { id: latestMatrix.id } }" link>
-              <EyeIcon class="w-5 h-5 mr-2" />
-              View Matrix
-            </TButton>
+            <slot name="left-buttons" :latestMatrixId="latestMatrix.id">
+            </slot>
           </div>
         </div>
         <div v-else class="text-gray-600 text-center py-16">
-          Your don't have matrices yet
+          <slot name="left-no-content">
+          </slot>
         </div>
       </DashboardCard>
       <DashboardCard class="order-4 lg:order-3 row-span-2" style="animation-delay: 0.3s">
         <template v-slot:title>
           <div class="flex justify-between items-center mb-3 px-2">
-            <h3 class="text-2xl font-semibold">Your Latest Matrices</h3>
+            <h3 class="text-2xl font-semibold">
+              <slot name="right-title">
+              </slot>  
+            </h3>
 
             <router-link
-              :to="{ name: 'Matrices' }"
+              :to="{ name: viewAllLink }"
               link
               class="text-sm text-blue-500 hover:decoration-blue-500"
             >
@@ -78,7 +75,8 @@
           </router-link>
         </div>
         <div v-else class="text-gray-600 text-center py-16">
-          Your don't have matrices yet
+          <slot name="right-no-content">
+          </slot> 
         </div>
       </DashboardCard>
     </div>
@@ -86,13 +84,15 @@
 </template>
 
 <script setup>
-import {EyeIcon, PencilIcon} from "@heroicons/vue/solid"
 import DashboardCard from "../components/core/DashboardCard.vue";
-import TButton from "../components/core/TButton.vue";
 import PageComponent from "../components/PageComponent.vue";
 import { watch, computed } from "vue";
 import { useStore } from "vuex";
 import MatrixInfo from "../components/MatrixInfo.vue";
+
+export default {
+  props: ['viewAllLink'],
+}
 
 const store = useStore();
 
