@@ -1,3 +1,4 @@
+<!-- This file was previously named MatricesDashboard.vue -->
 <template>
   <PageComponent title="Dashboard">
     <div v-if="loading" class="flex justify-center">Loading...</div>
@@ -90,9 +91,9 @@ import { watch, computed } from "vue";
 import { useStore } from "vuex";
 import MatrixInfo from "../components/MatrixInfo.vue";
 
-export default {
-  props: ['viewAllLink'],
-}
+const props = defineProps({
+  viewAllLink: String
+})
 
 const store = useStore();
 

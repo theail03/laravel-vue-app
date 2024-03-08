@@ -1,5 +1,5 @@
 <template>
-    <MatricesDashboard viewAllLink="Matrices">
+    <DashboardLayout viewAllLink="Matrices">
         <template v-slot:top-center-content="slotProps">
             Sign up to create your own matrices
         </template>
@@ -21,10 +21,11 @@
         <template v-slot:right-no-content>
             There are no public matrices available at the moment.
         </template> 
-    </MatricesDashboard>
+    </DashboardLayout>
 </template>
 
 <script setup>
+import DashboardLayout from "./DashboardLayout.vue";
 import { EyeIcon } from "@heroicons/vue/solid"
 import TButton from "../components/core/TButton.vue";
 </script>

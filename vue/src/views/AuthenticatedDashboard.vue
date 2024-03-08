@@ -1,5 +1,5 @@
 <template>
-    <MatricesDashboard viewAllLink="MatricesPublic">
+    <DashboardLayout viewAllLink="MatricesPublic">
         <template v-slot:top-center-content="slotProps">
             <div class="metric-value">
                 {{ slotProps.totalUserMatrices }}
@@ -28,10 +28,11 @@
         <template v-slot:right-no-content>
             Your don't have matrices yet
         </template> 
-    </MatricesDashboard>
+    </DashboardLayout>
 </template>
 
 <script setup>
-import { EyeIcon, PencilIcon} from "@heroicons/vue/solid"
+import DashboardLayout from "./DashboardLayout.vue";
+import { EyeIcon, PencilIcon } from "@heroicons/vue/solid"
 import TButton from "../components/core/TButton.vue";
 </script>
