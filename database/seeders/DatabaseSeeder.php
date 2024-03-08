@@ -13,5 +13,14 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
+        // Seed the matrices first
+        $matrices = \App\Models\Matrix::factory(50)->create();
+
+        // Now seed the images
+        $matrices->each(function ($matrix) {
+            \App\Models\Image::factory(rand(5, 15))->create([
+                'matrix_id' => $matrix->id
+            ]);
+        });
     }
 }
