@@ -1,5 +1,5 @@
 <template>
-    <DashboardLayout viewAllLink="Matrices">
+    <DashboardLayout viewAllLink="MatricesPublic">
         <template v-slot:top-center-content="slotProps">
             Sign up to create your own matrices
         </template>

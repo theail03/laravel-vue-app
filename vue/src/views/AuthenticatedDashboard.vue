@@ -1,5 +1,5 @@
 <template>
-    <DashboardLayout viewAllLink="MatricesPublic">
+    <DashboardLayout viewAllLink="Matrices">
         <template v-slot:top-center-content="slotProps">
             <div class="metric-value">
                 {{ slotProps.totalUserMatrices }}
