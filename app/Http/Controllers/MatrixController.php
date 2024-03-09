@@ -32,7 +32,7 @@ class MatrixController extends Controller
             $query->where('user_id', $user->id);
         }
     
-        return MatrixResource::collection($query->orderBy('created_at', 'DESC')->paginate(10));
+        return MatrixResource::collection($query->orderBy('created_at', 'DESC')->paginate(6));
     }
 
     /**
