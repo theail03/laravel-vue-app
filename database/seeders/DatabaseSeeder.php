@@ -3,6 +3,8 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
+use App\Models\Matrix;
+use App\Models\Image;
 
 class DatabaseSeeder extends Seeder
 {
@@ -13,14 +15,22 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // Seed the matrices first
-        $matrices = \App\Models\Matrix::factory(50)->create();
+        // Seed the matrices, adjusting the count to 15
+        $matrices = Matrix::factory(15)->create();
 
-        // Now seed the images
-        $matrices->each(function ($matrix) {
-            \App\Models\Image::factory(rand(5, 15))->create([
-                'matrix_id' => $matrix->id
-            ]);
-        });
+        // Now seed the images for each cell in each matrix
+        foreach ($matrices as $matrix) {
+            for ($row = 1; $row <= $matrix->rows; $row++) {
+                for ($column = 1; $column <= $matrix->columns; $column++) {
+                    Image::factory()->create([
+                        'matrix_id' => $matrix->id,
+                        'row' => $row,
+                        'column' => $column,
+                        // 'path' is set by the ImageFactory
+                        // 'public_id' is not set and will default to null
+                    ]);
+                }
+            }
+        }
     }
 }

@@ -13,7 +13,7 @@ class MatrixFactory extends Factory
     public function definition()
     {
         return [
-            'user_id' => null, // user_id is null
+            // 'user_id' is not set and will default to null
             'title' => $this->faker->sentence,
             'rows' => $this->faker->numberBetween(1, 10),
             'columns' => $this->faker->numberBetween(1, 10),
