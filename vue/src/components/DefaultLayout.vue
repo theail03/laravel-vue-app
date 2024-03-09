@@ -38,10 +38,12 @@
               </div>
             </div>
           </div>
+
           <div class="hidden md:block">
             <div class="ml-4 flex items-center md:ml-6">
+
               <!-- Profile dropdown -->
-              <Menu as="div" class="ml-3 relative">
+              <Menu v-if="isAuthenticated" as="div" class="ml-3 relative">
                 <div class="flex">
                   <MenuButton
                     class="max-w-xs bg-gray-800 rounded-full flex items-center text-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white"
@@ -99,8 +101,12 @@
                   </MenuItems>
                 </transition>
               </Menu>
+
+              <!-- "Sign in with Google" button, shown if not authenticated -->
+              <GoogleSignInButton v-else />
             </div>
           </div>
+
           <div class="-mr-2 flex md:hidden">
             <!-- Mobile menu button -->
             <DisclosureButton
@@ -130,42 +136,49 @@
             >{{ item.name }}
           </router-link>
         </div>
+
         <div class="pt-4 pb-3 border-t border-gray-700">
-          <div class="flex items-center px-5">
-            <div class="flex-shrink-0">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                class="h-8 w-8"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="white"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M5.121 17.804A13.937 13.937 0 0112 16c2.5 0 4.847.655 6.879 1.804M15 10a3 3 0 11-6 0 3 3 0 016 0zm6 2a9 9 0 11-18 0 9 9 0 0118 0z"
-                />
-              </svg>
-            </div>
-            <div class="ml-3">
-              <div class="user-name">
-                {{ user.name }}
+          <template v-if="isAuthenticated">
+            <div class="flex items-center px-5">
+              <div class="flex-shrink-0">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="h-8 w-8"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="white"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M5.121 17.804A13.937 13.937 0 0112 16c2.5 0 4.847.655 6.879 1.804M15 10a3 3 0 11-6 0 3 3 0 016 0zm6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+                  />
+                </svg>
               </div>
-              <div class="user-email">
-                {{ user.email }}
+              <div class="ml-3">
+                <div class="user-name">
+                  {{ user.name }}
+                </div>
+                <div class="user-email">
+                  {{ user.email }}
+                </div>
               </div>
             </div>
-          </div>
-          <div class="mt-3 px-2 space-y-1">
-            <DisclosureButton
-              as="a"
-              @click="logout"
-              class="block px-3 py-2 rounded-md text-base font-medium text-gray-400 hover:text-white hover:bg-gray-700 cursor-pointer"
-              >Sign out
-            </DisclosureButton>
+            <div class="mt-3 px-2 space-y-1">
+              <DisclosureButton
+                as="a"
+                @click="logout"
+                class="block px-3 py-2 rounded-md text-base font-medium text-gray-400 hover:text-white hover:bg-gray-700 cursor-pointer"
+                >Sign out
+              </DisclosureButton>
+            </div>
+          </template>
+          <div v-else class="flex items-center px-5">
+            <GoogleSignInButton />
           </div>
         </div>
+        
       </DisclosurePanel>
     </Disclosure>
 
@@ -190,12 +203,7 @@ import { useStore } from "vuex";
 import { computed } from "vue";
 import { useRouter } from "vue-router";
 import Notification from "./Notification.vue";
-
-const navigation = [
-  { name: "Dashboard", to: { name: "MatricesDashboard" } },
-  { name: "Public Matrices", to: { name: "MatricesPublic" } },
-  { name: "My Matrices", to: { name: "Matrices" } },
-];
+import GoogleSignInButton from "./core/GoogleSignInButton.vue";
 
 export default {
   components: {
@@ -210,15 +218,29 @@ export default {
     MenuIcon,
     XIcon,
     Notification,
+    GoogleSignInButton,
   },
   setup() {
     const store = useStore();
     const router = useRouter();
+    const isAuthenticated = computed(() => store.getters.isAuthenticated);
+    const navigation = computed(() => {
+      const baseNavigation = [
+        { name: "Dashboard", to: { name: "MatricesDashboard" } },
+        { name: "Public Matrices", to: { name: "MatricesPublic" } },
+      ];
 
+      if (isAuthenticated.value) {
+        baseNavigation.push({ name: "My Matrices", to: { name: "Matrices" } });
+      }
+
+      return baseNavigation;
+    });
+        
     function logout() {
       store.dispatch("logout").then(() => {
         router.push({
-          name: "Login",
+          name: "MatricesDashboard",
         });
       });
     }
@@ -229,6 +251,7 @@ export default {
       user: computed(() => store.state.user.data),
       navigation,
       logout,
+      isAuthenticated,
     };
   },
 };

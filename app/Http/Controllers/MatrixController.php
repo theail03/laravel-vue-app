@@ -32,7 +32,7 @@ class MatrixController extends Controller
             $query->where('user_id', $user->id);
         }
     
-        return MatrixResource::collection($query->orderBy('created_at', 'DESC')->paginate(10));
+        return MatrixResource::collection($query->orderBy('created_at', 'DESC')->paginate(6));
     }
 
     /**
@@ -58,7 +58,9 @@ class MatrixController extends Controller
      */
     public function show(Matrix $matrix, Request $request)
     {
-        UserHelper::authorizeUser($matrix->user_id);
+        if (!$matrix->is_public) {
+            UserHelper::authorizeUser($matrix->user_id);
+        }
 
         return new MatrixResource($matrix);
     }

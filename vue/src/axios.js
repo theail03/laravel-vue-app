@@ -10,9 +10,9 @@ const axiosClient = axios.create({
 axiosClient.interceptors.response.use(response => {
   return response;
 }, error => {
-  if (error.response.status === 401) {
-    router.push({name: 'Login'});
-  } else if (error.response.status === 403 || error.response.status === 404) {
+  if (error.response.status === 401) { // Unauthorized
+    router.push({name: 'MatricesDashboard'});
+  } else if (error.response.status === 403 || error.response.status === 404) { // Forbidden or Not Found
     router.push({ name: 'Error', params: { error: error.response.status }});
   } else {
     handleErrorResponse(error);

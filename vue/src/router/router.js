@@ -1,5 +1,4 @@
 import { createRouter, createWebHistory } from "vue-router";
-import MatricesDashboard from "../views/MatricesDashboard.vue";
 import Matrices from "../views/Matrices.vue";
 import MatrixView from "../views/MatrixView.vue";
 import Login from "../views/Login.vue";
@@ -8,39 +7,20 @@ import ErrorPage from "../views/ErrorPage.vue";
 import DefaultLayout from "../components/DefaultLayout.vue";
 import AuthLayout from "../components/AuthLayout.vue";
 import store from "../store/store";
+import DashboardWrapper from "../views/DashboardWrapper.vue";
 
 const routes = [
   {
     path: "/",
     redirect: "/matrices/dashboard",
     component: DefaultLayout,
-    meta: { requiresAuth: true },
     children: [
-      { path: "/matrices/dashboard", name: "MatricesDashboard", component: MatricesDashboard },
-      { path: "/matrices", name: "Matrices", component: Matrices, props: { publicMode: false } },
+      { path: "/matrices/dashboard", name: "MatricesDashboard", component: DashboardWrapper },
+      { path: "/matrices", name: "Matrices", component: Matrices, props: { publicMode: false }, meta: { requiresAuth: true } },
       { path: "/matrices/public", name: "MatricesPublic", component: Matrices, props: { publicMode: true } },
-      { path: "/matrices/create", name: "MatrixCreate", component: MatrixView, props: { editMode: true } },
-      { path: "/matrices/:id", name: "MatrixEdit", component: MatrixView, props: { editMode: true } },
+      { path: "/matrices/create", name: "MatrixCreate", component: MatrixView, props: { editMode: true }, meta: { requiresAuth: true } },
+      { path: "/matrices/:id", name: "MatrixEdit", component: MatrixView, props: { editMode: true }, meta: { requiresAuth: true } },
       { path: "/matrices/:id/view", name: "MatrixView", component: MatrixView, props: { editMode: false } },
-    ],
-  },
-  {
-    path: "/auth",
-    redirect: "/login",
-    name: "Auth",
-    component: AuthLayout,
-    meta: {isGuest: true},
-    children: [
-      {
-        path: "/login",
-        name: "Login",
-        component: Login,
-      },
-      {
-        path: "/register",
-        name: "Register",
-        component: Register,
-      },
     ],
   },
   {
@@ -58,11 +38,9 @@ const router = createRouter({
 
 router.beforeEach(async (to, from, next) => {
   await store.dispatch("getUser");
-  const isUserDataSet = Object.keys(store.state.user.data).length > 0;
+  const isUserDataSet = store.getters.isAuthenticated;
 
   if (to.meta.requiresAuth && !isUserDataSet) {
-    next({ name: "Login" });
-  } else if (isUserDataSet && to.meta.isGuest) {
     next({ name: "MatricesDashboard" });
   } else {
     next();
