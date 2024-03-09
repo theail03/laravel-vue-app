@@ -67,16 +67,39 @@ const store = createStore({
     getMatrices({ commit }, options = {}) {
       commit('setMatricesLoading', true);
     
-      // Determine the URL based on whether 'public' flag is set in options
-      let url = options.url || "/matrix";
-      if (options.public) {
-        url += '?public=true';
+      // Initialize the base URL
+      let baseUrl = options.url || "/matrix";
+      let queryParams = new URLSearchParams();
+    
+      // Check if the base URL already contains query parameters
+      const hasExistingParams = baseUrl.includes('?');
+      if (hasExistingParams) {
+        // Extract existing query parameters
+        const [path, existingParams] = baseUrl.split('?');
+        baseUrl = path;
+        // Add existing parameters to queryParams
+        new URLSearchParams(existingParams).forEach((value, key) => {
+          queryParams.set(key, value);
+        });
       }
     
-      // Proceed with the API call using the constructed URL
-      return axiosClient.get(url).then((res) => {
-        commit('setMatricesLoading', false);
+      // Append additional options as query parameters, except 'url'
+      Object.entries(options).forEach(([key, value]) => {
+        if (key !== 'url') {
+          queryParams.set(key, value); // Use set to update or append parameters
+        }
+      });
+    
+      // Construct the full URL with all query parameters
+      let finalUrl = baseUrl + '?' + queryParams.toString();
+    
+      // Remove the last character if it is a '?' or '&'
+      finalUrl = finalUrl.replace(/[?&]$/, '');
+    
+      // Make the API call using the constructed URL
+      return axiosClient.get(finalUrl).then((res) => {
         commit('setMatrices', res.data);
+        commit('setMatricesLoading', false);
         return res;
       });
     },
