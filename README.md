@@ -45,6 +45,8 @@ The project is open-sourced software licensed under the [MIT license](https://op
 
 To integrate Cloudinary's services for image management, go to the Cloudinary Console, navigate to the Dashboard and locate the `API environment variable` which is a ready-to-use string with all your credentials.
 
+Execute the command `php artisan key:generate` to populate the APP_KEY variable in the .env file.
+
 To seed your database with initial data, run the following command:
 ```bash
 php artisan db:seed
@@ -56,3 +58,4 @@ php artisan db:seed
 - [Login con Laravel 10 y Google | SSO Fácil con Laravel Socialite](https://www.youtube.com/watch?v=C98LvIbPSf0)
 - [Upload image with laravel and cloudinary - 1](https://www.youtube.com/watch?v=ekJ3LZs2yu8)
 - [Upload image with laravel and cloudinary - 2](https://www.youtube.com/watch?v=LaSLfXoLYYA)
+- [Tutorial Laravel Vue Deploy a Hostinger](https://www.youtube.com/watch?v=O7jJMGQai2U)
