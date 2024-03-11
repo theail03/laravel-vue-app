@@ -50,6 +50,9 @@ const store = createStore({
       .then(res => {
         commit('setUser', res.data);
       })
+      .catch(error => {
+        console.error('There was an error fetching the user data:', error);
+      });
     },
     getMatricesDashboardData({commit}) {
       commit('setMatricesDashboardLoading', true)
