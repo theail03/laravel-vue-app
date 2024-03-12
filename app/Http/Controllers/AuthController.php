@@ -34,7 +34,7 @@ class AuthController extends Controller
 
         Auth::login($user);
     
-        return redirect('http://localhost:3000/matrices/dashboard');
+        return redirect(env('CLIENT_URL') . '/matrices/dashboard');
     }
 
     public function logout()
