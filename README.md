@@ -56,3 +56,4 @@ To seed your database with initial data, run `php artisan db:seed`.
 - [Upload image with laravel and cloudinary - 1](https://www.youtube.com/watch?v=ekJ3LZs2yu8)
 - [Upload image with laravel and cloudinary - 2](https://www.youtube.com/watch?v=LaSLfXoLYYA)
 - [Tutorial Laravel Vue Deploy a Hostinger](https://www.youtube.com/watch?v=O7jJMGQai2U)
+- [Tutorial env variables de google y cloudinary en hostinger](https://youtu.be/VZy6CkdUjkw)
