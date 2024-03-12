@@ -47,10 +47,7 @@ To integrate Cloudinary's services for image management, go to the Cloudinary Co
 
 Execute the command `php artisan key:generate` to populate the APP_KEY variable in the .env file.
 
-To seed your database with initial data, run the following command:
-```bash
-php artisan db:seed
-```
+To seed your database with initial data, run `php artisan db:seed`.
 
 ## Links
 
